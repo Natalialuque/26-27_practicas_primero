@@ -23,5 +23,6 @@ function cuerpo()
 ?>
     <br><br>
     Hola, estás en Index.php
+    Buenas soy natalia 
 <?php
 }
