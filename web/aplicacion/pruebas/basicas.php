@@ -85,6 +85,9 @@ function cuerpo()
     $aux =1252;
     $var="hola".$aux;
 
+
+    /**PRUEBAS DESDE CASA DE QUE TODO FUNCIONA  */
+
  ?>
 
 
