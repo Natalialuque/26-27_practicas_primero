@@ -83,7 +83,7 @@ function finCuerpo()
             <footer>
                 <hr width="90%"  />  
                 <div>
-                    &copy; Copyright  by Profesor
+                    &copy; Copyright Natalia Cabello Luque
                 </div>
             </footer>
         </div>

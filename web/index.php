@@ -13,9 +13,11 @@ cuerpo();  //llamo a la vista
 finCuerpo();
 // **********************************************************
 
-//vista
+//vista cabecera donde podemos ver otros enlaces 
 function cabecera() 
-{}
+{
+    /** */
+}
 
 //vista
 function cuerpo()
