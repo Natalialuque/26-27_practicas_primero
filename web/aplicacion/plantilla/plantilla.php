@@ -63,7 +63,8 @@ function inicioCuerpo($cabecera)
                 <div id="menuPrincipal" >
                     <ul>
                         <li><a href="/index.php">Inicio</a></li>
-                        <li><a href="../practica1/index.php">Practica 1</a></li>
+                        <li><a href="/aplicacion/practica1/index.php">Practica 1</a></li>
+
                     </ul>
 
 

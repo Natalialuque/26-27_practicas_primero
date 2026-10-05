@@ -24,7 +24,19 @@ function cuerpo()
 {
 ?>
     <br><br>
-   
-    <a href="./aplicacion/pruebas/index.php">Acceso a pruebas</a>
+     <h3>Ejercicios</h3>
+    <ul>
+        <li><a href="/aplicacion/practica1/index.php">Práctica 1</a></li> 
+        
+
+    </ul>   
+        <br><br>
+
+        <h3>Pruebas<h3>
+    <ul>
+       <li><a href="./aplicacion/pruebas/index.php">Acceso a pruebas</a></li>
+
+    </ul>
+    
 <?php
 }
