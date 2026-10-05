@@ -58,6 +58,17 @@ function inicioCuerpo($cabecera)
         
             <header>
                 <h1 id="titulo"><?php echo $cabecera;?></h1>
+
+
+                <div id="menuPrincipal" >
+                    <ul>
+                        <li><a href="/index.php">Inicio</a></li>
+                        <li><a href="../practica1/index.php">Practica 1</a></li>
+                    </ul>
+
+
+                </div>
+
             </header>
             
             <div id="barraLogin">
@@ -65,8 +76,13 @@ function inicioCuerpo($cabecera)
             </div>
             <div id="barraMenu">
                 <ul>
-                    <li><a href="/index.php">Inicio</a></li>
-                 </ul> 
+                    <!--  -->
+                    <?php
+                    if (isset($GLOBALS['ubicacion'])) {
+                        mostrarBarraUbicacion($GLOBALS['ubicacion']);
+                    }
+                    ?>
+                </ul> 
                 
             </div>
             
@@ -91,3 +107,27 @@ function finCuerpo()
 </html>
 <?php
 }
+
+/**
+ * Funcion que nos permite mostrar la barra de ubicacion 
+ *
+ * @param array $ubicacion
+ * @return void
+ */
+ function mostrarBarraUbicacion(array $ubicacion)
+    {
+        echo "<nav class='barraModdle'>";
+        $total = count($ubicacion);
+        $contador = 0;
+
+        foreach ($ubicacion as $nombre => $url) {
+            $contador++;
+            if ($contador < $total) {
+                echo "<a href='{$url}'>{$nombre}</a> &raquo; ";
+            } else {
+                echo "<span>{$nombre}</span>";
+            }
+        }
+
+        echo "</nav><br>";
+    }
