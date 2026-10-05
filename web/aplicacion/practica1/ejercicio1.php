@@ -29,6 +29,7 @@ function cabecera() {}
 function cuerpo()
 {
 
+//titulo del enunciado 
  echo"<h3>FUNCIONES MATEMATICAS</h3>";
  
   echo "<ul>";
