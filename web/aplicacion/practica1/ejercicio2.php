@@ -38,25 +38,62 @@ function lanzaDado()
 $lanzaDados = lanzaDado();
 
 
+
 //PARTE 2 --> Tenemos que definir una constante N, necesitamos un bucle while y generar una serie de numeros aleatrios, y para finalizar contar cuantas veces ha salido la cara de dicho dado
+//definimos la constante N y los 100 lanzamientos 
+define("N", 1000);
+function contarLanzamientos(){
+
+    //contador que inicializa las posiciones del array
+    $contador = [1 => 0,2 => 0,3 => 0,4 => 0,5 => 0, 6 => 0 ];
+
+    //vamos recorriendo en el while 
+    $i = 0;
+
+    while($i < N)
+    {
+        //generamos el numero ale del 1 al 6
+        $num = (mt_rand() % 6) + 1;
+
+        //y contamos las veces que aparece 
+        $contador[$num]++;
+
+        $i++;
+    }
+
+    //decolvermos dicho contador con los resultados
+    return $contador;
+}
+
+//guardamos dicha funcion en un parametro para pasarselo a la vista
+$contarLanzamientos = contarLanzamientos();
 
 
 cabecera();
 finCabecera();
 inicioCuerpo("2DAW APLICACION");
-cuerpo($lanzaDados); //llamo a la vista
+cuerpo($lanzaDados,$contarLanzamientos); //llamo a la vista
 finCuerpo();
 // **********************************************************
 ////vista cabecera donde podemos ver otros enlaces 
 
 function cabecera() {}
 //vista
-function cuerpo($lanzaDados)
-{
+function cuerpo($lanzaDados,$contarLanzamientos){
 ?>
     <h2>LANZAMIENTO DE UN DADO</h2>
 <?php
+    
     foreach ($lanzaDados as $indice => $valor) {
-        echo "Lanzamiento " . ($indice + 1) . " del dado: " . $valor . "<br>";
+        echo "<ul><li>Lanzamiento " . ($indice + 1) . " del dado: " . $valor . "<br></li></ul>";
+    }
+
+?>
+    <h4>Lanzando el dado 1000 veces</h4>
+<?php 
+
+    foreach($contarLanzamientos as $cara => $veces)
+    {
+        echo "<ul><li>El $cara ha salido $veces veces <br></li></ul>";
     }
 }
