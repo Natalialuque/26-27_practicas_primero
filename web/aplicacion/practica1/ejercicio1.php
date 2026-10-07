@@ -13,12 +13,10 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 
  ];
 
- $GLOBALS["ubicacion"]=$ubicacion;
-
 
 cabecera();
 finCabecera();
-inicioCuerpo("2DAW APLICACION");
+inicioCuerpo("2DAW APLICACION",$ubicacion);
 cuerpo(); //llamo a la vista
 finCuerpo();
 // **********************************************************

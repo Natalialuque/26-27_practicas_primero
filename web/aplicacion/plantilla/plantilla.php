@@ -48,7 +48,7 @@ function finCabecera()
 <?php   
 }
 
-function inicioCuerpo($cabecera)
+function inicioCuerpo($cabecera,?array $ubicacion = null)
 {
     global $acceso;
 
@@ -79,8 +79,9 @@ function inicioCuerpo($cabecera)
                 <ul>
                     <!--  -->
                     <?php
-                    if (isset($GLOBALS['ubicacion'])) {
-                        mostrarBarraUbicacion($GLOBALS['ubicacion']);
+                
+                    if ($ubicacion !== null) {
+                        mostrarBarraUbicacion($ubicacion);
                     }
                     ?>
                 </ul> 

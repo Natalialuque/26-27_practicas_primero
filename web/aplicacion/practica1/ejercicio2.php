@@ -12,7 +12,7 @@ $ubicacion = [
 ];
 
 //llamada HOLA
-$GLOBALS["ubicacion"] = $ubicacion;
+//$GLOBALS["ubicacion"] = $ubicacion;
 
 
 //controlador
@@ -71,7 +71,7 @@ $contarLanzamientos = contarLanzamientos();
 
 cabecera();
 finCabecera();
-inicioCuerpo("2DAW APLICACION");
+inicioCuerpo("2DAW APLICACION",$ubicacion);
 cuerpo($lanzaDados,$contarLanzamientos); //llamo a la vista
 finCuerpo();
 // **********************************************************
@@ -85,7 +85,7 @@ function cuerpo($lanzaDados,$contarLanzamientos)
     <h2>LANZAMIENTO DE UN DADO</h2>
 <?php
     foreach ($lanzaDados as $indice => $valor) {
-        echo "Lanzamiento " . ($indice + 1) . " del dado: " . $valor . "<br>";
+        echo "<ul><li>Lanzamiento " . ($indice + 1) . " del dado: " . $valor . "<br></li></ul>";
     }
 ?>
     <h4>Lanzando el dado 1000 veces</h4>

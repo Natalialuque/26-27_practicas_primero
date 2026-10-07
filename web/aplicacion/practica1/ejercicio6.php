@@ -3,9 +3,16 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 //controlador
 //dibuja la plantilla de la vista
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
+$ubicacion = [
+    "pagina principal" => "../../index.php",
+    "relacion 1" => "./index.php",
+    "Ejercicio 6" => "ejercicio6.php"
+
+];
+//controlador
 cabecera();
 finCabecera();
-inicioCuerpo("2DAW APLICACION");
+inicioCuerpo("2DAW APLICACION",$ubicacion);
 cuerpo(); //llamo a la vista
 finCuerpo();
 // **********************************************************
