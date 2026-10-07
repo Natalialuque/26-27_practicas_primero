@@ -92,7 +92,7 @@ function cuerpo($lanzaDados,$contarLanzamientos){
     <h4>Lanzando el dado 1000 veces</h4>
 <?php 
 
-//hola
+//hola buenos dias 
     foreach($contarLanzamientos as $cara => $veces)
     {
         echo "<ul><li>El $cara ha salido $veces veces <br></li></ul>";
