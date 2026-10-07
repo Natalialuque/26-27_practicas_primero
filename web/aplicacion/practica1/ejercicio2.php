@@ -11,7 +11,7 @@ $ubicacion = [
 
 ];
 
-//llamada
+//llamada HOLA
 $GLOBALS["ubicacion"] = $ubicacion;
 
 
