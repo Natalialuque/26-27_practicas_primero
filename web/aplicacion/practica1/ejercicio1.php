@@ -13,7 +13,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 
  ];
 
- $GLOBALS["Ubicacion"]=$ubicacion;
+ $GLOBALS["ubicacion"]=$ubicacion;
 
 
 cabecera();
