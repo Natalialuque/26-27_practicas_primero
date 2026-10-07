@@ -11,7 +11,8 @@ $ubicacion = [
 
 ];
 
-$GLOBALS["Ubicacion"] = $ubicacion;
+//llamada
+$GLOBALS["ubicacion"] = $ubicacion;
 
 
 //controlador
@@ -36,7 +37,6 @@ function lanzaDado()
 
 //guardamos dicha funcion en un parametro para pasarselo a la vista
 $lanzaDados = lanzaDado();
-
 
 
 //PARTE 2 --> Tenemos que definir una constante N, necesitamos un bucle while y generar una serie de numeros aleatrios, y para finalizar contar cuantas veces ha salido la cara de dicho dado
@@ -79,15 +79,14 @@ finCuerpo();
 
 function cabecera() {}
 //vista
-function cuerpo($lanzaDados,$contarLanzamientos){
+function cuerpo($lanzaDados,$contarLanzamientos)
+{
 ?>
     <h2>LANZAMIENTO DE UN DADO</h2>
 <?php
-    
     foreach ($lanzaDados as $indice => $valor) {
-        echo "<ul><li>Lanzamiento " . ($indice + 1) . " del dado: " . $valor . "<br></li></ul>";
+        echo "Lanzamiento " . ($indice + 1) . " del dado: " . $valor . "<br>";
     }
-
 ?>
     <h4>Lanzando el dado 1000 veces</h4>
 <?php 
