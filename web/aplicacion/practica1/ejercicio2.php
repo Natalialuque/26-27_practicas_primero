@@ -6,7 +6,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 //barra de ubicacion logica que nos indica donde estamos
 $ubicacion = [
     "pagina principal" => "../../index.php",
-    "relacion 2" => "./index.php",
+    "relacion 1" => "./index.php",
     "Ejercicio 2" => "ejercicio2.php"
 
 ];
@@ -16,7 +16,6 @@ $ubicacion = [
 
 
 //controlador
-//aqui es donde tenemos que obtener los arrays 
 
 //PARTE 1--> Necesito un array en el que guardo las tiradas, 
 //usamos el for para recorrerlo donde en cada vuelta generamos

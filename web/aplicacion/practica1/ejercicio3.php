@@ -136,7 +136,7 @@ function cuerpo($arrayA,$arrayB,$arrayC)
 <?php
        foreach ($arrayC as $indice => $valor) {
 
-        echo "Índice: " . $indice . "<br>";
+        echo "Indice: " . $indice . "<br>";
 
         // Si el valor es un array, lo recorremos
         if (is_array($valor)) {
