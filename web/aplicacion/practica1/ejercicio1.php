@@ -15,8 +15,13 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 
 
 cabecera();
+<<<<<<< HEAD
 finCabecera();
 inicioCuerpo("2DAW APLICACION",$ubicacion);
+=======
+finCabecera();//hola
+inicioCuerpo("2DAW APLICACION");
+>>>>>>> eaf321ed5c9639a2ca604c771d7bf109070489e5
 cuerpo(); //llamo a la vista
 finCuerpo();
 // **********************************************************
