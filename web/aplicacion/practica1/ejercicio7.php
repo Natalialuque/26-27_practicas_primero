@@ -25,6 +25,7 @@ function cuerpo()
 {
 ?>  
 <h3>USANDO FUNCIONES DE FECHA</h3>
+
 <?php
  echo"<ul>";
 // Fecha actual
