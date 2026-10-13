@@ -27,7 +27,6 @@ function cuerpo()
          <li><a href="ejercicio7.php">Ejercicio 7</a><br></li> 
 
 
-        
    </ul>
 <?php
 }
