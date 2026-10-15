@@ -11,7 +11,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 
  ];
 
-//CONTROLADOR
+//CONTROLADOR h
 // Cadena con la que vamos a trabajar
 $cadena = "Está la niña en casa";
 
