@@ -19,6 +19,8 @@ function cuerpo()
     buenos dias pequeño saltamontes 
     <br><br>
     <a href="basicas.php">funcionamiento</a>
+    <a href="cadenas.php">cadenas</a>
+
 
 <?php
 }
