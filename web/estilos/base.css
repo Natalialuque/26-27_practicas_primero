@@ -236,3 +236,9 @@ padding:5px;
     text-align: center;
     border-radius: 12px;
 }
+
+/* para el logotipo */
+header #logo{
+    width: 25px;
+    height: 20px;
+}

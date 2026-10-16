@@ -83,8 +83,9 @@ function cuerpo($cadena,$tamCadena,$partes,$cadenaModificada)
  * Forma correcta usando mb_substr.
  */
 for ($i = 0; $i < $tamCadena; $i++) {
-    
-    echo str_repeat(" ", $i);
+
+    echo str_repeat("&nbsp;", $i);
+
     echo mb_substr($cadena, $i, 1);
 
     echo "<br>";

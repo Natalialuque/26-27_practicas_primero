@@ -128,18 +128,4 @@ function cuerpo()
 
     echo "<br>";
 
-
-    // CONCLUSIONES
-    
-    echo "<h2>Conclusiones</h2>";
-
-    echo "<ul>";
-
-    echo "<li>Las comillas dobles interpretan variables y caracteres especiales.</li>";
-
-    echo "<li>Las comillas simples no interpretan variables ni caracteres especiales.</li>";
-
-    echo "<li>HEREDOC funciona como las comillas dobles.</li>";
-
-    echo "<li>NOWDOC funciona como las comillas simples.</li>";
 }

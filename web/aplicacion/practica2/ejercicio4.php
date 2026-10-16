@@ -27,8 +27,6 @@ function cabecera() {}
 //vista
 function cuerpo($var1, $var2)
 {
-
-
 ?>
 
 <h2>Primer Valor</h2>
@@ -41,7 +39,8 @@ function cuerpo($var1, $var2)
 <h2>Segundo Valor</h2>
 <div>
     <?php 
-        echo str_pad($var2,15,'0',STR_PAD_RIGHT) //el right o o left añade a un lado u otro
+        $text =  str_pad($var2,15,' ',STR_PAD_RIGHT);//el right o o left añade a un lado u otro
+        echo str_replace(' ', '&nbsp;', $text);
     ?>
 </div>
 
