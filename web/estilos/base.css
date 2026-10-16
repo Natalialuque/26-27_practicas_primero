@@ -238,7 +238,7 @@ padding:5px;
 }
 
 /* para el logotipo */
-header #logo{
-    width: 25px;
-    height: 20px;
+header #logo img {
+    width: 75px;
+    height: 50px;
 }
