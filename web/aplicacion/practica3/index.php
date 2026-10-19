@@ -26,33 +26,117 @@ function cuerpo()
 
  <h4>Apartado 1:Cuenta veces</h4>
 <?php
-    $array = [];//esto es el array en el que vamos guardando todo
-    $cont = 0;//este valor se va sumando, es el contador
+   
+    $array = [];//array en el que guardamos todo
+    $cont = 0; //contador para las llamadas 
 
-    // Veces que hemos llamado al método
-    cuentaVeces($array, "clave4", 3, $cont); //$array->donde guardamos, $clave->nombre de la posicion, $7->valor de esa posicon, $cont->contador de llamadas
-    cuentaVeces($array, "daw", 28, $cont);
-    cuentaVeces($array, "222adw", 222, $cont);
-    cuentaVeces($array, "2daw", 6, $cont);//NO LO MUESTRA PORQUE AL SER FALSO EL ARRAY LO IGNORA
-    cuentaVeces($array, "789", 987, $cont);
+    //$array->donde guardamos, $clave->nombre de la posicion, $7->valor de esa posicon, $cont->contador de llamadas
+    if (!cuentaVeces($array, "clave4", 3, $cont)) {
+        echo "Error en clave4<br>";
+    }
+
+    if (!cuentaVeces($array, "daw", 28, $cont)) {
+        echo "Error en daw<br>";
+    }
+
+    if (!cuentaVeces($array, "222adw", 222, $cont)) {
+        echo "Error en 222adw<br>";
+    }
+
+    if (!cuentaVeces($array, "2daw", 6, $cont)) {
+        echo "Error: la clave 2daw no es válida<br>";
+    }
+
+    if (!cuentaVeces($array, "789", 987, $cont)) {
+        echo "Error en 789<br>";
+    }
 
     // Muestras los resultados
-    print_r($array); //para que el array se imprima correctamente 
+    print_r($array);//para que el array se imprima correctamente 
     echo "<br>";
+
     echo "Número de llamadas: $cont";
     
 ?>
  <h4>Apartado 2:Generar Cadenas</h4>
 <?php
 //mostramos los genera cadena
-    echo "Cadena de 7 caracteres:".generarCadena(7);
-    echo "<br>";
-    echo "Cadena de 10 caracteres:".generarCadena();
-    echo "<br>";
-    echo "Cadena de 2 caracteres:".generarCadena(2);
+   //esta da bien
+    $cadena1 = generarCadena(7);
 
+    if ($cadena1 === false) {
+        echo "Error: longitud incorrecta";
+    } else {
+        echo "Cadena de 7 caracteres:". $cadena1;
+    }
+    echo "<br>";
+
+    //esta es la de por defecto 
+    $cadena2 = generarCadena();
+    if ($cadena2 === false) {
+        echo "Error: longitud incorrecta";
+    } else {
+        echo"Cadena por defecto de caracteres:". $cadena2;
+    }
+    echo "<br>";
+
+    //esta da mal
+    $cadena3 = generarCadena(-2);
+
+    if ($cadena3 === false) {
+        echo "Error: longitud incorrecta";
+    } else {
+        echo $cadena3;
+    }
 ?>
  <h4>Apartado 3:Operaciones</h4>
 <?php
+/*Suma*/
+    $resultado1 = operaciones(1, 2, 5, 7, 3, 4);
 
+    if ($resultado1 !== false) {
+        echo "Resultado suma: $resultado1 <br>";
+    } else {
+        echo "Error: número insuficiente de operandos.<br>";
+    }
+
+    /*Resta*/
+    $resultado2 = operaciones(2, 20, 5, 3);
+
+    if ($resultado2 !== false) {
+        echo "Resultado resta: $resultado2 <br>";
+    } else {
+        echo "Error: número insuficiente de operandos.<br>";
+    }
+
+    /*multipliacion*/
+    $resultado3 = operaciones(3, 2, 5, 4);
+
+    if ($resultado3 !== false) {
+        echo "Resultado multiplicación: $resultado3 <br>";
+    }else {
+        echo "Error: número insuficiente de operandos.<br>";
+    }
+
+    /*suma pares y resta impares*/
+    $resultado4 = operaciones(5, 2, 5, 7, 3, 4);
+
+    if ($resultado4 !== false) {
+        echo "Resultado suma pares y resta impares: $resultado4 <br>";
+    }else {
+        echo "Error: número insuficiente de operandos.<br>";
+    }
+
+    /* Caso con error */
+    $resultado5 = operaciones(1, 5);
+
+    if ($resultado5 !== false) {
+        echo "Resultado: $resultado5 <br>";
+    }else {
+        echo "Error: la función necesita al menos dos operandos.<br>";
+    }
+?>
+<h4>Aartado 4: </h4>
+<?php
+   
 }

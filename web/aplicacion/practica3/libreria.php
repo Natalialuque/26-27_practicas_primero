@@ -74,10 +74,51 @@ function generarCadena(int $num = 10): string|false {
 }
 
 /**
- * Undocumented function
+ * FUNCION 3 --> OPERACIONES 
+ * vamos a hacer opraciones de suma,resta,multi y suma pares e impares 
+ * usamos un swtich que vaya recorriendo
+ * tenemos suerte de que tenemos unos metodos de array que nos hacen suma y multi 
+ * La resta es un poco mas complicada, porque tenemos que sacar el primer numero y recorrer los siguientes para ir restando
+ * 
  *
- * @return integer|float
+ * @param integer $operador
+ * @param float ...$numeros
+ * @return float|false
  */
-function operaciones(): int|float{
-    return 5;
+//el float ...$numeros permite que la funcion reciba una cantidad idefinida de datos
+function operaciones(int $operador, float ...$numeros): float|false{
+     
+    // Debe haber al menos dos operandos
+    if (count($numeros) < 2) {
+        return false;
+    }
+
+    //swtich 
+    switch ($operador){
+        case 1 : //suma 
+            return array_sum($numeros); //suma los numeros del array 
+        case 2:  //resta 
+            $resultado = array_shift($numeros); // toma el primer número
+            foreach ($numeros as $num) {//va sacando el los numeros del array
+                $resultado -= $num;
+            }
+            return $resultado;
+        case 3: //multiplicacion
+            return array_product($numeros); //multiplica los numeros
+        default: // suma de pares, resta de impares (posición 1 es impar)
+            $resultado = 0;
+            foreach ($numeros as $i => $num) {
+                $posicion = $i + 1; // primer operando es posición 1
+                if ($posicion % 2 === 0) {
+                    $resultado += $num; //Posición par -> sumar
+                } else {
+                    $resultado -= $num; //Posición impar -> restar
+                }
+            }
+            return $resultado;
+    }
+}
+
+function devuelve(){
+    
 }
