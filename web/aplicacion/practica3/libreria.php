@@ -220,4 +220,18 @@ function llamadaAFuncion(int $a, int $b, callable $callback):int{
     return $callback($a,$b); // gracias a esto podemos realizar cualquier operacion
 }
 
+/**
+ * FUNCION 7 --> ORDENAR EN ORDEN DESCENDENTE
+ *Pasamos un parametro a la funcion, un array
+ * Lo ordenamos de forma descendente gracias al usort y a la resta de las cadenas 
+ * @param array $vector
+ * @return void
+ */
+function ordenar(array &$vector):void{
 
+//usort para ordenar cadenas personalizadas
+    usort($vector, function($a, $b) {
+        return strlen($b) - strlen($a); // orden descendente por longitud
+    });
+
+}

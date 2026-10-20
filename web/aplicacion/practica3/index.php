@@ -138,99 +138,99 @@ function cuerpo()
 ?>
 <h4>Aartado 4:Devuelve </h4>
 <?php
-//Tres parametros 
-$a1=7;
-$devolver1 = devuelve($a1,4,3);
-echo "<h5>Tres parametros</h5>";
-if($devolver1!==false){
-    echo "Suma: $a1<br>";
-    echo "Producto: $devolver1<br>";
-}else {
-    echo "Error:los parametros deben ser numeros.<br>";
-}
+    //Tres parametros 
+    $a1=7;
+    $devolver1 = devuelve($a1,4,3);
+    echo "<h5>Tres parametros</h5>";
+    if($devolver1!==false){
+        echo "Suma: $a1<br>";
+        echo "Producto: $devolver1<br>";
+    }else {
+        echo "Error:los parametros deben ser numeros.<br>";
+    }
 
-//El primer parametro solo 
-$a2=5;
-$devolver2 = devuelve($a2);
-echo "<h5>Primer parametro</h5>";
-if($devolver2!==false){
-    echo "Suma: $a2<br>";
-    echo "Producto: $devolver2<br>";
-}else {
-    echo "Error:los parametros deben numeros.<br>";
-}
+    //El primer parametro solo 
+    $a2=5;
+    $devolver2 = devuelve($a2);
+    echo "<h5>Primer parametro</h5>";
+    if($devolver2!==false){
+        echo "Suma: $a2<br>";
+        echo "Producto: $devolver2<br>";
+    }else {
+        echo "Error:los parametros deben numeros.<br>";
+    }
 
-//El primer y el segundo parametro
-$a3=6;
-$devolver3 = devuelve($a3,4); 
-echo "<h5>Primer y segundo parametro</h5>";
-if($devolver3!==false){
-    echo "Suma: $a3<br>";
-    echo "Producto: $devolver3<br>";
-}else {
-    echo "Error:los parametros deben numeros.<br>";
-}
+    //El primer y el segundo parametro
+    $a3=6;
+    $devolver3 = devuelve($a3,4); 
+    echo "<h5>Primer y segundo parametro</h5>";
+    if($devolver3!==false){
+        echo "Suma: $a3<br>";
+        echo "Producto: $devolver3<br>";
+    }else {
+        echo "Error:los parametros deben numeros.<br>";
+    }
 
-//El primer y el tercer parametro 
-$a4=4;
-$devolver4 = devuelve($a4,c:23);
-echo "<h5>Primer y tercer parametro</h5>";
-if($devolver4!==false){
-    echo "Suma: $a4<br>";
-    echo "Producto: $devolver4<br>";
-}else {
-    echo "Error:los parametros deben numeros.<br>";
-}
+    //El primer y el tercer parametro 
+    $a4=4;
+    $devolver4 = devuelve($a4,c:23);
+    echo "<h5>Primer y tercer parametro</h5>";
+    if($devolver4!==false){
+        echo "Suma: $a4<br>";
+        echo "Producto: $devolver4<br>";
+    }else {
+        echo "Error:los parametros deben numeros.<br>";
+    }
 ?>
 <h4>Aartado 5:hacer Operacion </h4>
 <?php
-//suma
-$resultado1 = hacerOperacion("suma", 3, 2);
+    //suma
+    $resultado1 = hacerOperacion("suma", 3, 2);
 
-if ($resultado1 !== false) {
-    echo "Suma: $resultado1<br>";
-} else {
-    echo "Error en la operación suma<br>";
-}
+    if ($resultado1 !== false) {
+        echo "Suma: $resultado1<br>";
+    } else {
+        echo "Error en la operación suma<br>";
+    }
 
-//resta 
-$resultado2 = hacerOperacion("resta", 3, 2);
+    //resta 
+    $resultado2 = hacerOperacion("resta", 3, 2);
 
-if ($resultado2 !== false) {
-    echo "Resta: $resultado2<br>";
-} else {
-    echo "Error en la operación resta<br>";
-}
+    if ($resultado2 !== false) {
+        echo "Resta: $resultado2<br>";
+    } else {
+        echo "Error en la operación resta<br>";
+    }
 
-//multiplicacion
-$resultado3 = hacerOperacion("multiplicacion", 3, 2);
+    //multiplicacion
+    $resultado3 = hacerOperacion("multiplicacion", 3, 2);
 
-if ($resultado3 !== false) {
-    echo "Multiplicación: $resultado3<br>";
-} else {
-    echo "Error en la operación multiplicación<br>";
-}
+    if ($resultado3 !== false) {
+        echo "Multiplicación: $resultado3<br>";
+    } else {
+        echo "Error en la operación multiplicación<br>";
+    }
 
-//Division para que salte error
-$resultado4 = hacerOperacion("divide", 3, 2);
+    //Division para que salte error
+    $resultado4 = hacerOperacion("divide", 3, 2);
 
-if ($resultado4 !== false) {
-    echo "División: $resultado4<br>";
-} else {
-    echo "Error: operación no válida<br>";
-}
-   
-?> 
+    if ($resultado4 !== false) {
+        echo "División: $resultado4<br>";
+    } else {
+        echo "Error: operación no válida<br>";
+    }
+    
+    ?> 
 <h4>Apartado 6: LLamada a una función</h4>
 <?php
-//pasamos dos numeros enteros y la operacion a realizar mediante el fn, que son equivalentes a funciones fecha
-echo "suma:".llamadaAFuncion(1, 2, fn($a, $b) => $a + $b) . "<br>"; 
-echo "resta:".llamadaAFuncion(5, 3, fn($a, $b) => $a - $b) . "<br>"; 
-echo "multiplicacion:".llamadaAFuncion(4, 6, fn($a, $b) => $a * $b) . "<br>"; 
-echo "division:".llamadaAFuncion(4, 2, fn($a, $b) => $a / $b) . "<br>"; 
+    //pasamos dos numeros enteros y la operacion a realizar mediante el fn, que son equivalentes a funciones fecha
+    echo "suma:".llamadaAFuncion(1, 2, fn($a, $b) => $a + $b) . "<br>"; 
+    echo "resta:".llamadaAFuncion(5, 3, fn($a, $b) => $a - $b) . "<br>"; 
+    echo "multiplicacion:".llamadaAFuncion(4, 6, fn($a, $b) => $a * $b) . "<br>"; 
+    echo "division:".llamadaAFuncion(4, 2, fn($a, $b) => $a / $b) . "<br>"; 
 
-//tambien nos deja mediante funciones anonimas 
-echo "<h5>Con funciones anonimas</h5>";
+    //tambien nos deja mediante funciones anonimas 
+    echo "<h5>Con funciones anonimas</h5>";
 
     $sumar = function ($a, $b) {
         return $a + $b;
@@ -248,14 +248,28 @@ echo "<h5>Con funciones anonimas</h5>";
         return $a/$b;
     };
 
-echo "Suma anonimo:".llamadaAFuncion(1, 2, $sumar) . "<br>";       
-echo "resta anonimo:".llamadaAFuncion(5, 3, $restar) . "<br>";      
-echo "multiplicacion anonimo:".llamadaAFuncion(4, 6, $multiplicar) . "<br>";
-echo "division anonimo:".llamadaAFuncion(4, 2, $dividir) . "<br>";
+    echo "Suma anonimo:".llamadaAFuncion(1, 2, $sumar) . "<br>";       
+    echo "resta anonimo:".llamadaAFuncion(5, 3, $restar) . "<br>";      
+    echo "multiplicacion anonimo:".llamadaAFuncion(4, 6, $multiplicar) . "<br>";
+    echo "division anonimo:".llamadaAFuncion(4, 2, $dividir) . "<br>";
 
 
 ?> 
-<h4>Apartado 7: </h4>
+<h4>Apartado 7: Ordenar</h4>
 <?php
+    //array donde metemos las palabras y le pasamos a la funcion 
+    $vector = ["uno", "grande", "caminos", "a"];
+
+    echo "<h5>Antes de ordenar:</h5>";
+    foreach ($vector as $palabra) {
+        echo "$palabra<br>";
+    }
+
+    ordenar($vector); // ordena el array
+
+    echo "<h5><h5>Después de ordenar:</h5>";
+    foreach ($vector as $palabra) {
+        echo "$palabra<br>";
+    }
 
 }
