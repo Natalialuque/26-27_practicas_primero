@@ -182,8 +182,45 @@ if($devolver4!==false){
     echo "Error:los parametros deben numeros.<br>";
 }
 ?>
-<h4>Aartado 5:Devuelve </h4>
+<h4>Aartado 5:hacer Operacion </h4>
 <?php
+//suma
+$resultado1 = hacerOperacion("suma", 3, 2);
 
+if ($resultado1 !== false) {
+    echo "Suma: $resultado1<br>";
+} else {
+    echo "Error en la operación suma<br>";
+}
+
+//resta 
+$resultado2 = hacerOperacion("resta", 3, 2);
+
+if ($resultado2 !== false) {
+    echo "Resta: $resultado2<br>";
+} else {
+    echo "Error en la operación resta<br>";
+}
+
+//multiplicacion
+$resultado3 = hacerOperacion("multiplicacion", 3, 2);
+
+if ($resultado3 !== false) {
+    echo "Multiplicación: $resultado3<br>";
+} else {
+    echo "Error en la operación multiplicación<br>";
+}
+
+//Division para que salte error
+$resultado4 = hacerOperacion("divide", 3, 2);
+
+if ($resultado4 !== false) {
+    echo "División: $resultado4<br>";
+} else {
+    echo "Error: operación no válida<br>";
+}
    
+?> 
+<h4>Apartado 6: LLamada a una función</h4>
+<?php
 }

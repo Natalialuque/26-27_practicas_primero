@@ -142,3 +142,69 @@ function devuelve(int &$a, int $b=4, int $c=10): int|bool{
     return $resultado;
     
 }
+
+
+/**
+ * FUNCION 5 --> HACER OPERACIONES 
+ * Tenemos 3 operaciones a realiar que vamos a llamar en funciones externas,
+ * PERO deben ser pasadas como parametros de funcion y no como funciones tal cual, 
+ * podriamos usarlo con switch si pasasemos las funciones como parametros
+ * 
+ * Tenemos 3 parametros, un string con el tipo de operacion y dos int de operandos 
+ *
+ * @param string $cadena
+ * @param integer $a
+ * @param integer $b
+ */
+function hacerOperacion(string $cadena,int $a, int $b): int | bool {
+
+   //gracias podemos cumplir con esta parte del ejercicio --> usando una variable-
+    //función para llamar a la operación, las guardamos en array para no pasarlas directamente
+    if (!in_array($cadena, ["suma", "resta", "multiplicacion"])) {
+        return false;
+    }
+
+    $operacion = $cadena; // variable función, con la que realizamos la operacion
+
+    return $operacion($a, $b); //devolvemos la operacion
+}
+
+//ESTO SERIA OTRA FORMA, EN LA QUE LE PASAMOS LAS FUNCIONES COMO PARAMETROS TAL CUAL
+// function hacerOperacion(string $cadena, int $a, int $b): int|bool {
+// // Variables que almacenan funciones
+//     $fSuma = 'suma';
+//     $fResta = 'resta';
+//     $fMulti = 'multiplicacion';
+
+//     switch ($cadena) {
+//         case 'suma':
+//             return $fSuma($a, $b); // llama a la función suma() usando la variable
+//         case 'resta':
+//             return $fResta($a, $b); // llama a la función resta() usando la variable
+//         case 'multi':
+//             return $fMulti($a, $b); // llama a la función multiplicacion() usando la variable
+//         default:
+//             return false; // operación no reconocida
+//     }
+
+// }
+
+/**
+ * tres funciones de suma resta y multiplicacion
+ */
+function suma(int $a,int $b){
+    return $a+$b;
+}
+function resta(int $a,int $b){
+    return $a-$b;
+}
+function multiplicacion(int $a,int $b){
+    return $a*$b;
+}
+
+
+
+
+function llamadaAFuncion(){
+    
+}
