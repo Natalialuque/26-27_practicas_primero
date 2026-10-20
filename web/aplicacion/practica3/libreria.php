@@ -64,8 +64,8 @@ function generarCadena(int $num = 10): string|false {
      //Bucle en el que recorresmos la cantidad de caracteres que queremos y sacamos aleatorios de esa expresion regular 
      for ($i = 0; $i < $num; $i++) {
         do {
-            $caracter = chr(rand(48, 122));
-        } while (!preg_match($regex, $caracter));
+            $caracter = chr(rand(48, 122));//esto me genera los aleatorios de caracteres mediante codigo ascci
+        } while (!preg_match($regex, $caracter)); //esto me define que los caracteres sean validos
              $cadena .= $caracter;
         }
 
@@ -110,9 +110,9 @@ function operaciones(int $operador, float ...$numeros): float|false{
             foreach ($numeros as $i => $num) {
                 $posicion = $i + 1; // primer operando es posición 1
                 if ($posicion % 2 === 0) {
-                    $resultado += $num; //Posición par -> sumar
+                    $resultado += $num; //Posición par : sumar
                 } else {
-                    $resultado -= $num; //Posición impar -> restar
+                    $resultado -= $num; //Posición impar : restar
                 }
             }
             return $resultado;
@@ -204,7 +204,20 @@ function multiplicacion(int $a,int $b){
 
 
 
+/**
+ * FUNCION 6 --> LLAMADA A FUNCION
+ *
+ *Le pasamos dos parametros enteros y un callable  
+ * Devuelve el resultado de dos numeros 
+ * EL callable se encarga de saber a que funcion hay que llamar para que la solucion de esos dos numeros
+ * @param integer $a
+ * @param integer $b
+ * @param callable $callback
+ * @return integer|boolean
+ */
 
-function llamadaAFuncion(){
-    
+function llamadaAFuncion(int $a, int $b, callable $callback):int{
+    return $callback($a,$b); // gracias a esto podemos realizar cualquier operacion
 }
+
+

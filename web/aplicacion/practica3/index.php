@@ -223,4 +223,39 @@ if ($resultado4 !== false) {
 ?> 
 <h4>Apartado 6: LLamada a una función</h4>
 <?php
+//pasamos dos numeros enteros y la operacion a realizar mediante el fn, que son equivalentes a funciones fecha
+echo "suma:".llamadaAFuncion(1, 2, fn($a, $b) => $a + $b) . "<br>"; 
+echo "resta:".llamadaAFuncion(5, 3, fn($a, $b) => $a - $b) . "<br>"; 
+echo "multiplicacion:".llamadaAFuncion(4, 6, fn($a, $b) => $a * $b) . "<br>"; 
+echo "division:".llamadaAFuncion(4, 2, fn($a, $b) => $a / $b) . "<br>"; 
+
+//tambien nos deja mediante funciones anonimas 
+echo "<h5>Con funciones anonimas</h5>";
+
+    $sumar = function ($a, $b) {
+        return $a + $b;
+    };
+
+    $restar = function ($a, $b) {
+        return $a - $b;
+    };
+
+    $multiplicar = function ($a, $b) {
+        return $a * $b;
+    };
+
+    $dividir = function ($a,$b){
+        return $a/$b;
+    };
+
+echo "Suma anonimo:".llamadaAFuncion(1, 2, $sumar) . "<br>";       
+echo "resta anonimo:".llamadaAFuncion(5, 3, $restar) . "<br>";      
+echo "multiplicacion anonimo:".llamadaAFuncion(4, 6, $multiplicar) . "<br>";
+echo "division anonimo:".llamadaAFuncion(4, 2, $dividir) . "<br>";
+
+
+?> 
+<h4>Apartado 7: </h4>
+<?php
+
 }
