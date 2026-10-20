@@ -22,7 +22,7 @@ function cabecera() {}
 function cuerpo()
 {
 ?>
- <h1>Relación3:Funciones</h1>
+ <h1 id="TituloCuerpo">Relación3:Funciones</h1>
 
  <h4>Apartado 1:Cuenta veces</h4>
 <?php

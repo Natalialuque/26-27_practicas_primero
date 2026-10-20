@@ -104,7 +104,7 @@ function finCuerpo()
             </div>
             <footer>
                 <hr width="90%"  />  
-                <div>
+                <div id="pie">
                     &copy; Copyright Natalia Cabello Luque
                 </div>
             </footer>

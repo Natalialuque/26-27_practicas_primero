@@ -24,7 +24,7 @@ function cuerpo()
 {
 ?>
     <br><br>
-     <h3>Ejercicios</h3>
+     <h3 id="TituloCuerpo">Ejercicios</h3>
     <ul>
         <li><a href="/aplicacion/practica1/index.php">Práctica 1</a></li> 
         <li><a href="/aplicacion/practica2/index.php">Práctica 2</a></li> 
@@ -36,7 +36,7 @@ function cuerpo()
     </ul>   
         <br><br>
 
-        <h3>Pruebas<h3>
+        <h3 id="TituloCuerpo">Pruebas<h3>
     <ul>
        <li><a href="./aplicacion/pruebas/index.php">Acceso a pruebas</a></li>
 
