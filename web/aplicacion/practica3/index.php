@@ -136,7 +136,54 @@ function cuerpo()
         echo "Error: la función necesita al menos dos operandos.<br>";
     }
 ?>
-<h4>Aartado 4: </h4>
+<h4>Aartado 4:Devuelve </h4>
 <?php
+//Tres parametros 
+$a1=7;
+$devolver1 = devuelve($a1,4,3);
+echo "<h5>Tres parametros</h5>";
+if($devolver1!==false){
+    echo "Suma: $a1<br>";
+    echo "Producto: $devolver1<br>";
+}else {
+    echo "Error:los parametros deben ser numeros.<br>";
+}
+
+//El primer parametro solo 
+$a2=5;
+$devolver2 = devuelve($a2);
+echo "<h5>Primer parametro</h5>";
+if($devolver2!==false){
+    echo "Suma: $a2<br>";
+    echo "Producto: $devolver2<br>";
+}else {
+    echo "Error:los parametros deben numeros.<br>";
+}
+
+//El primer y el segundo parametro
+$a3=6;
+$devolver3 = devuelve($a3,4); 
+echo "<h5>Primer y segundo parametro</h5>";
+if($devolver3!==false){
+    echo "Suma: $a3<br>";
+    echo "Producto: $devolver3<br>";
+}else {
+    echo "Error:los parametros deben numeros.<br>";
+}
+
+//El primer y el tercer parametro 
+$a4=4;
+$devolver4 = devuelve($a4,c:23);
+echo "<h5>Primer y tercer parametro</h5>";
+if($devolver4!==false){
+    echo "Suma: $a4<br>";
+    echo "Producto: $devolver4<br>";
+}else {
+    echo "Error:los parametros deben numeros.<br>";
+}
+?>
+<h4>Aartado 5:Devuelve </h4>
+<?php
+
    
 }

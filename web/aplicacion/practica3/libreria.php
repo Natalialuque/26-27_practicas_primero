@@ -118,7 +118,27 @@ function operaciones(int $operador, float ...$numeros): float|false{
             return $resultado;
     }
 }
+/**
+ * FUNCION 4 --> DEVUELVE 
+ * Le pasamos tres parametros el primero debe de ser por referencia (&) ya que debemos modificarlo
+ * El primer valor se modifica y pasa a ser la suma de los tres parametros 
+ * El resultado es la multiplicación de ellos 
+ * El tercer parametro si no se indica nada por defecto es 10
+ * @param integer &$a
+ * @param integer $b
+ * @param integer $c
+ * @return integer
+ */
+function devuelve(int &$a, int $b=4, int $c=10): int|bool{
+   
+    // Comprobar que son enteros
+    if (!is_int($a) || !is_int($b) || !is_int($c)) {
+        return false;
+    }
 
-function devuelve(){
+    $resultado = $a * $b * $c;//esto para la multiplicación
+    $a = $a+$b+$c;//esto para el cambio del $a
+
+    return $resultado;
     
 }
