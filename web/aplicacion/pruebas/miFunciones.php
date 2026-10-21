@@ -19,3 +19,13 @@ function doble(int $num):int|false{
 
     return 2 * $num;
 }
+
+/**
+ * funcion con varios parametros
+ */
+function variosParametros (int $par1,string $par2="",float $par3=10.0):int|float{
+
+    $par3+=$par1+$par2;
+    return $par3;
+
+}
