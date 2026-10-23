@@ -12,10 +12,58 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
  ];
 
  //CONTROLADOR
+
+//Pasamos las funciones en parametros para poder pasarsela a la vista 
 $cadenaArray = generarCadenaArray();
 $cadenaAscii = generarCadenaAscii();
 
- /**
+ 
+////////////////////////////////////////////////
+cabecera();
+finCabecera();
+inicioCuerpo("2DAW APLICACION",$ubicacion);
+cuerpo($cadenaArray, $cadenaAscii); //llamo a la vista
+finCuerpo();
+// **********************************************************
+////vista cabecera donde podemos ver otros enlaces 
+
+function cabecera() {}
+//vista
+function cuerpo($cadenaArray, $cadenaAscii)
+{
+?>
+<h2>CADENAS CON ARRAY Y CON ASCII</h2>
+    
+    <!-- Recorremos con forech la funcion para mostrar la cadena -->
+    <h4>Usando array</h4>
+   <?php
+    $arrayCaracteres = str_split($cadenaArray);
+
+    foreach ($arrayCaracteres as $caracter)
+    {
+        echo $caracter . " ";
+    }
+    ?>
+
+    <!-- Recorremos con forech la funcion para mostrar la cadena -->
+    <h4>Usando ASCII</h4>
+    <?php
+    $arrayCaracteres = str_split($cadenaAscii);
+
+    foreach ($arrayCaracteres as $caracter)
+    {
+        echo $caracter . " ";
+    }
+    ?>
+<?php
+}
+
+
+/**
+ * FUCIONES 
+ */
+
+/**
   * APARTADO A) A partir de un array en el que están todos los caracteres posibles que cumplen la condición.
   */
 function generarCadenaArray()
@@ -68,43 +116,4 @@ function generarCadenaAscii()
     }
 
     return $cadena;
-}
-////////////////////////////////////////////////
-cabecera();
-finCabecera();
-inicioCuerpo("2DAW APLICACION",$ubicacion);
-cuerpo($cadenaArray, $cadenaAscii); //llamo a la vista
-finCuerpo();
-// **********************************************************
-////vista cabecera donde podemos ver otros enlaces 
-
-function cabecera() {}
-//vista
-function cuerpo($cadenaArray, $cadenaAscii)
-{
-?>
-<h2>CADENAS CON ARRAY Y CON ASCII</h2>
-    
-    <!-- Recorremos con forech la funcion para mostrar la cadena -->
-    <h4>Usando array</h4>
-   <?php
-    $arrayCaracteres = str_split($cadenaArray);
-
-    foreach ($arrayCaracteres as $caracter)
-    {
-        echo $caracter . " ";
-    }
-    ?>
-
-    <!-- Recorremos con forech la funcion para mostrar la cadena -->
-    <h4>Usando ASCII</h4>
-    <?php
-    $arrayCaracteres = str_split($cadenaAscii);
-
-    foreach ($arrayCaracteres as $caracter)
-    {
-        echo $caracter . " ";
-    }
-    ?>
-<?php
 }
