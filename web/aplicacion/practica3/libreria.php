@@ -86,7 +86,7 @@ function generarCadena(int $num = 10): string|false {
  * @return float|false
  */
 //el float ...$numeros permite que la funcion reciba una cantidad idefinida de datos
-function operaciones(int $operador, float ...$numeros): float|false{
+function operaciones(int $operador, float ...$numeros): float|bool{
      
     // Debe haber al menos dos operandos
     if (count($numeros) < 2) {
