@@ -20,6 +20,8 @@ function cuerpo()
     <br><br>
     <a href="basicas.php">funcionamiento</a>
     <a href="cadenas.php">cadenas</a>
+    <a href="ClasePrueba.php">cadenas</a>
+
 
 
 <?php

@@ -11,6 +11,7 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 
  ];
 
+
 cabecera();
 finCabecera();
 inicioCuerpo("2DAW APLICACION",$ubicacion);
