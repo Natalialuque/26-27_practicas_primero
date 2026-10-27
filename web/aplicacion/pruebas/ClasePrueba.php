@@ -26,7 +26,7 @@ $datosJSon=json_encode($datos);
 $p1 = Prueba::desdeDatos(5, 'Objeto');
 $p2 = Prueba::desdeJson($datosJSon);
 
-$inst = new Prueba(12,"cadena");
+//$inst = new Prueba(12,"cadena");
 
 cabecera();
 finCabecera();
