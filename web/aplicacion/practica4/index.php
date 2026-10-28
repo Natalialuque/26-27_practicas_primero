@@ -50,6 +50,51 @@ echo "<p>Esto es una clase padre, he realizado pruebas pero estan comentados</p>
 <?php
 echo"<p>En esta clase tenemos dos metodos dentro de una interfaz, que vamos a implementar en otras clases</p>";
 ?>
+<h4>InstrumentoViento</h4>
+<?php
+        //Creamos 2 --> 1 con valores por defecto // 2 con valores modifcacos
+        $instrumentoViento = new InstrumentoViento();
+        $instrumentoViento2 = new InstrumentoViento("metal",18);
+
+        //mostramos al instrumento 1, con los valores por defecto
+        echo "<h5>Instrumento 1 </h5>";
+        echo $instrumentoViento;
+        echo $instrumentoViento -> afinar();
+        echo $instrumentoViento2 -> sonido();
+        
+        echo "<br>";
+        
+        //mostramos el instrumento 2, con los valores que le hemos pasado
+        echo "<h5>Instrumento 2 </h5>";
+        echo $instrumentoViento2;
+        echo $instrumentoViento -> afinar();
+        echo $instrumentoViento2 -> sonido();
+?>
+<h4>Flauta</h4>
+<?php
+//  $array = ["edad" => 12, "material" => "metal"];
+//     $obj = Flauta::crearDesdeArray($array);
+//     $obj2 = clone $obj;
+
+//     echo $obj . "<br>";
+//     echo $obj2;
+
+$array = [
+    "edad" => 12,
+    "material" => "madera"
+];
+
+$obj = Flauta::crearDesdeArray($array);
+
+$obj2 = clone $obj;
+
+echo "<h5>Flauta 1</h5>";
+echo $obj;
+echo "<h5>Flauta 2</h5>";
+echo $obj2;
+
+?>
+<h4>EstadoCivil y Persona</h4>
 <?php
 
 }

@@ -1,10 +1,12 @@
 <?php 
 abstract class InstrumentoBase{
 
-//propiedades 
+/**
+ * PROPIEDADES
+ */ 
 private string $_cadena; //cadena 
 protected int $_edad=10; //edad del instrumento
-private int $_ordencreacion; //orden de creación de la instancia 
+protected int $_ordencreacion; //orden de creación de la instancia 
 
 //Veces que se ha creado la clase, esta propiedad es de clase
 protected static int $_cont=0; 
