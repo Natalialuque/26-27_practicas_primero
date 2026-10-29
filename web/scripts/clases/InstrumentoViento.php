@@ -1,6 +1,6 @@
 <?php
 /**
- * Cremaos la clase de instrumentoViento, al cueal herada de instrumentoBase
+ * Cremaos la clase de instrumentoViento, la cual herada de instrumentoBase
  */
 class InstrumentoViento extends InstrumentoBase{
 

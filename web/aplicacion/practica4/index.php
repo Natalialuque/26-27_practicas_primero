@@ -72,29 +72,46 @@ echo"<p>En esta clase tenemos dos metodos dentro de una interfaz, que vamos a im
 ?>
 <h4>Flauta</h4>
 <?php
-//  $array = ["edad" => 12, "material" => "metal"];
-//     $obj = Flauta::crearDesdeArray($array);
-//     $obj2 = clone $obj;
+        //creamos el array
+        $array = [
+                "edad" => 12,
+                "material" => "madera"
+        ];
 
-//     echo $obj . "<br>";
-//     echo $obj2;
+        $obj = Flauta::crearDesdeArray($array);
 
-$array = [
-    "edad" => 12,
-    "material" => "madera"
-];
+        //con esto probamos la clonacion
+        $obj2 = clone $obj;
 
-$obj = Flauta::crearDesdeArray($array);
-
-$obj2 = clone $obj;
-
-echo "<h5>Flauta 1</h5>";
-echo $obj;
-echo "<h5>Flauta 2</h5>";
-echo $obj2;
+        echo "<h5>Flauta 1</h5>";
+        echo $obj;
+        echo "<h5>Flauta 2</h5>";
+        echo $obj2;
 
 ?>
 <h4>EstadoCivil y Persona</h4>
 <?php
+        // Obtener todos los estados posibles
+        $casos = EstadoCivil::arrayCasos();
+
+        // Elegir uno aleatorio
+        $estadoAleatorio = $casos[array_rand($casos)];
+
+        // Crear persona
+        $persona = Persona::registrarPersona(
+                "Natalia",
+                "04/04/2004",
+                "Calle Real 25",
+                "Málaga",
+                $estadoAleatorio
+        );
+
+        // Mostrar la persona
+        echo $persona;
+
+?>
+<h4>SerieFibonacci</h4>
+<?php
+        
 
 }

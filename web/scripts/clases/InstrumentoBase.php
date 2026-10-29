@@ -106,10 +106,6 @@ public function __toString(): string {
 
 /**
  * DESABILITAR LA SOBRECARGA DINAMICA 
- *
- * @param [type] $name
- * @param [type] $value
- * @return void
  */
 public function __set(string $name, mixed $value):void{
     throw new Exception("No existe la propiedad $name");
@@ -124,6 +120,7 @@ public function __isset(string $name):bool{
 }
 
 public function __unset(string $name):void{
+    throw new Exception("No existe la propiedad $name");
 }
 
 }
