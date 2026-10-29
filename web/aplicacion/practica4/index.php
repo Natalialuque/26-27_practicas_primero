@@ -112,6 +112,9 @@ echo"<p>En esta clase tenemos dos metodos dentro de una interfaz, que vamos a im
 ?>
 <h4>SerieFibonacci</h4>
 <?php
-        
+
+?>
+<h4>ClaseMisPropiedades</h4>
+<?php      
 
 }
