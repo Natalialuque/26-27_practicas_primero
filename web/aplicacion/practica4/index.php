@@ -130,6 +130,34 @@ echo"<p>En esta clase tenemos dos metodos dentro de una interfaz, que vamos a im
         }
 ?>
 <h4>ClaseMisPropiedades</h4>
-<?php      
+<?php
+        // Creamos un objeto de la clase
+        $objeto = new ClaseMisPropiedades();
+
+        // Asignamos un valor a la propiedad pública de la clase
+        $objeto->propPublica = "publica";
+
+        /**  Creamos propiedades dinámicas.
+        * Estas propiedades NO están declaradas en la clase,por lo que PHP llamará automáticamente al método __set().
+        */
+        $objeto->propiedad1 = 25;
+        $objeto->propiedad2 = "cadena de texto";
+        $objeto->propiedad3 = true;
+
+        /**
+         *Leemos las propiedades dinámicas.
+         *Como no existen físicamente en la clase, PHP llamará automáticamente al método __get().
+        */     
+        echo "Propiedad 1: " . $objeto->propiedad1 . "<br>";
+        echo "Propiedad 2: " . $objeto->propiedad2 . "<br><br>";
+
+        echo "<h5>forEach</h5>";
+        
+        /**
+        *Para recorrer el iterator 
+        */
+        foreach ($objeto as $clave => $valor) {
+                echo $clave . " => " . $valor . "<br>";
+        }
 
 }

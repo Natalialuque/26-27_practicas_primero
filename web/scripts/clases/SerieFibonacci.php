@@ -1,7 +1,5 @@
 <?php
-/**
- * Definimos la clase de serie de fibonacci
- */
+//Definimos la clase de serie de fibonacci
 class SerieFibonacci implements Iterator{
     
     /**
