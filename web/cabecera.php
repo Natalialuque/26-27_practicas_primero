@@ -12,6 +12,7 @@ if (MODO_TRABAJO=="produccion")
         error_reporting(E_ALL);  
 
 spl_autoload_register(function ($clase){
+    //la carga de la carpeta scripts donde tenemos la carpeta clases 
     $ruta=RUTABASE."/scripts/clases/";
     $fichero=$ruta."$clase.php";
     

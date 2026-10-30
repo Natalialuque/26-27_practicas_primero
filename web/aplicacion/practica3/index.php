@@ -229,7 +229,7 @@ function cuerpo()
     echo "multiplicacion:".llamadaAFuncion(4, 6, fn($a, $b) => $a * $b) . "<br>"; 
     echo "division:".llamadaAFuncion(4, 2, fn($a, $b) => $a / $b) . "<br>"; 
 
-    //tambien nos deja mediante funciones anonimas 
+    //tambien probamos mediante funciones anonimas 
     echo "<h5>Con funciones anonimas</h5>";
 
     $sumar = function ($a, $b) {

@@ -86,7 +86,8 @@ function generarCadena(int $num = 10): string|false {
  * @return float|false
  */
 //el float ...$numeros permite que la funcion reciba una cantidad idefinida de datos
-function operaciones(int $operador, float ...$numeros): float|bool{
+//HAY QUE AÑADIR FLOAT $NUM1 Y FLOAT $NUM2 COMO OBLIGATORIOS
+function operaciones(int $operador,float ...$numeros): float|bool{
      
     // Debe haber al menos dos operandos
     if (count($numeros) < 2) {
@@ -231,7 +232,7 @@ function ordenar(array &$vector):void{
 
 //usort para ordenar cadenas personalizadas
     usort($vector, function($a, $b) {
-        return strlen($b) - strlen($a); // orden descendente por longitud
+        return mb_strlen($b) - mb_strlen($a); // orden descendente por longitud
     });
 
 }
