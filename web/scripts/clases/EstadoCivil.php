@@ -1,7 +1,5 @@
 <?php 
-/**
- * Creamos una clase enum de EstadoCivil con un Backed de int, ya que cada caso tiene asociado un numero
- */
+// Creamos una clase enum de EstadoCivil con un Backed de int, ya que cada caso tiene asociado un numero
 enum EstadoCivil : int {
 
     /**
@@ -13,21 +11,24 @@ enum EstadoCivil : int {
     case viudo=40;
 
     /**
-    * METODO DESCRIPCION -->devuelve el nombre del caso en concreto
-    */
+     * METODO DESCRIPCION -->devuelve el nombre del caso en concreto
+     * @return string
+     */
     function descripcion (): string{
         return $this -> name; //este name contiene el nombre del caso (soltero,casado,pareja..)
     }
 
     /**
      * METODO VALOR --> devuelve el valor de un caso en concreto
+     * @return integer
      */
     function valor (): int{
         return $this -> value; //este value contiene el valor de cada caso (soltero,casado,pareja..)
     }
-
+    
     /**
      * METODO ESTATICO --> devuelve un array con todos los casos
+     * @return array
      */
     static function arrayCasos():array{
         return self::cases(); //esto devuelve el objeto tal cual de arrays

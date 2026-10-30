@@ -101,7 +101,7 @@ echo"<p>En esta clase tenemos dos metodos dentro de una interfaz, que vamos a im
         $persona = Persona::registrarPersona(
                 "Natalia",
                 "04/04/2004",
-                "Calle Real 25",
+                "Calle Real 20",
                 "Málaga",
                 $estadoAleatorio
         );
@@ -113,6 +113,21 @@ echo"<p>En esta clase tenemos dos metodos dentro de una interfaz, que vamos a im
 <h4>SerieFibonacci</h4>
 <?php
 
+        echo "<h5>Prueba Iterator</h5>";
+        //creamos la serie de fibo de limite 10
+        $fibonacci = new SerieFibonacci(10);
+
+        //recorremos con foreach y lo vamos mostrando
+        foreach ($fibonacci as $valor) {
+                echo $valor . PHP_EOL;
+        }
+        
+        //Probamos la funcion de Generador
+        echo "<h5>Prueba Generador</h5>";
+
+        foreach (SerieFibonacci::fFibonacci(8) as $valor) {
+                echo $valor . PHP_EOL;
+        }
 ?>
 <h4>ClaseMisPropiedades</h4>
 <?php      
