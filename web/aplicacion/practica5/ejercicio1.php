@@ -91,40 +91,83 @@ function cuerpo()
 <?php
     $hora = "14:30:00";
     $resultado = \VALNORMAL\validaHora($hora, "00:00:00");
-    echo "Valor: $hora | Resultado: " . ($resultado ? "válido" : "inválido,,hemos cogido el de por defecto") . "\n";
+    echo "Valor: $hora | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
 
 ?>
 <h5>valFilter</h5>
 <?php
     $hora = "29:25:33";
     $resultado = \VALNORMAL\validaHora($hora, "00:00:00");
-    echo "Valor: $hora | Resultado: " . ($resultado ? "válido" : "inválido,,hemos cogido el de por defecto") . "\n";
+    echo "Valor: $hora | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
 ?>
+<hr>
 <h4>valida Email</h4>
 <h5>valNormal</h5>
 <?php
+    $email = "ncabluq878@educaand.com";
+     $resultado = \VALNORMAL\validaEmail($email, "aaaa@bbbb.ccc");
+    echo "Valor: $email | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
+
 ?>
 <h5>valFilter</h5>
 <?php
+    $email = "ncabluq878educaand.com";
+     $resultado = \VALFILTER\validaEmail($email, "aaaa@bbbb.ccc");
+    echo "Valor: $email | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
+
 ?>
+<hr>
 <h4>valida Cadena</h4>
 <h5>valNormal</h5>
+<!-- VAMOS A PROBAR EL MISMO METODO -->
 <?php
+    $longi = 15;
+
+    $cadena = "buenas Natalia";
+    $resultado = \VALNORMAL\validaCadena($cadena,$longi,"buenas nombre");
+    echo "Valor: $cadena | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
 ?>
 <h5>valFilter</h5>
 <?php
+    $cadena = "buenas Natalia su pedido ha sido cancelado debido";
+    $resultado = \VALFILTER\validaCadena($cadena,$longi,"buenas nombre");
+    echo "Valor: $cadena | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
 ?>
+<hr>
 <h4>valida Expresion</h4>
 <h5>valNormal</h5>
 <?php
+    $expresion ="/^[A-Z][a-zA-Z]{4}[1-9]{2}$/";
+             
+    $cadena="Buenas44"; 
+    $resultado = \VALNORMAL\validaExpresion($cadena,$expresion,"Ajjjj44");
+    echo "Valor: $cadena | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
 ?>
 <h5>valFilter</h5>
 <?php
+ $expresion ="/^[A-Z][a-zA-Z]{4}[1-9]{2}$/";
+             
+    $cadena="Adios14"; 
+    $resultado = \VALFILTER\validaExpresion($cadena,$expresion,"Ajjjj44");
+    echo "Valor: $cadena | Resultado: " . ($resultado ? "válido" : "inválido,hemos cogido el de por defecto") . "\n";
 ?>
+<hr>
 <h4>valida Rango</h4>
 <h5>valNormal</h5>
 <?php
+    $posibles = ["rojo", "verde", "azul"];
+             
+    $valor="verde"; 
+    $resultado = \VALNORMAL\validaRango($valor,$posibles,1);
+    echo "Valor: $valor | Resultado: " . ($resultado ? "válido" : "inválido") . "\n";
+
 ?>
 <h5>valFilter</h5>
 <?php
+    $posibles = ["rojo", "verde", "azul"];
+             
+    $valor="lila"; 
+    $resultado = \VALFILTER\validaRango($valor,$posibles,1);
+    echo "Valor: $valor | Resultado: " . ($resultado ? "válido" : "inválido") . "\n";
+
 }

@@ -171,3 +171,116 @@ function validaHora(string &$var, string $defecto): bool{
     $var = $defecto;
     return false;
 }
+
+/**
+ * function validaEmail(string &$var, string $defecto):bool Esta función comprueba que $var
+ * contiene un email correcto en el formato aaaaa@bbbb.ccc. En $var se devuelve el email
+ * saneado (en caso de no cumplir las condiciones devuelve $defecto). La función devuelve
+ * true si es correcto y false en caso contrario.
+ *
+ * EN LA LIBRERIA FILTER SI TENEMOS VALIDACION CONCRETA
+ * 
+ * @param  $var
+ * @param string $defecto
+ * @return boolean
+ */
+function validaEmail(string &$var, string $defecto): bool{
+    // Eliminar espacios y caracteres invisibles
+    $var = trim($var);
+
+    //si verifica que el email es correcto devuelve verdadero
+    if (filter_var($var, FILTER_VALIDATE_EMAIL)) {
+        return true;
+    } else {
+        //si no es valido cambia al defecto y devolvemos false
+        $var = $defecto;
+        return false;
+    }
+}
+
+/**
+ * function validaCadena(string &$var, int $longitud, string $defecto):bool Esta función
+ * comprueba que $var contiene una cadena de longitud máxima $longitud. En caso de no
+ * cumplir las condiciones se asigna a $var el valor $defecto. La función devuelve true si es
+ * correcto y false en caso contrario.
+ * 
+ * NO EXISTE EN LA LIBRERIA FILTER NADA PARA VERIFICAR UNA CADENA 
+ *
+ * @param string $var
+ * @param integer $longitud
+ * @param string $defecto
+ * @return boolean
+ */
+function validaCadena(string &$var, int $longitud, string $defecto): bool{
+
+    //verifica que la longitud no sea mayor y devuelve true
+    if(mb_strlen($var) <= $longitud){
+        return true;
+    }
+
+    //longitud mayor y la cambia por el defecto y devuelve false
+    $var = $defecto;
+    return false;
+}
+
+/**
+ * function validaExpresion(string &$var, string $expresion, string $defecto):bool Esta función
+ * comprueba que $var cumple con la expresión regular $expresion. En caso de no cumplir las
+ * condiciones se asigna a $var el valor por $defecto. La función devuelve true si es correcto y
+ * false en caso contrario.
+ * 
+ * EN LA LIBRERIA FILTER SI TENEMOS VALIDACION CONCRETA
+ *
+ * @param string $var
+ * @param string $expresion
+ * @param string $defecto
+ * @return boolean
+ */
+function validaExpresion(string &$var, string $expresion, string $defecto):bool {
+    
+    // Creamos las opciones indicando la expresión regular que debe cumplirse.
+    $opciones = array(
+        'options' => [
+            'regexp' => $expresion
+        ]
+    );
+
+    //Comprobamos que se cumple la expresión regular.
+    if (filter_var($var, FILTER_VALIDATE_REGEXP, $opciones)) {
+
+        return true;
+
+    }else {
+
+        //expresion no validad y la cambia por el defecto y devuelve false
+        $var = $defecto;
+        return false;
+    }
+}
+
+
+/**
+ * function validaRango(mixed $var, array $posibles, int $tipo=1):bool Esta función comprueba
+ * que $var sea igual a uno de los elementos del array $posibles ($tipo=1) o a una de las claves
+ * del array $posibles ($tipo=2). La función devuelve true si es correcta y false en caso contrario.
+ *
+ * NO EXISTE EN LA LIBRERIA FILTER NADA PARA VERIFICAR UNA CADENA 
+ * 
+ * @param mixed $var
+ * @param  $posibles
+ * @param  $tipo
+ * @return boolean
+ */
+function validaRango(mixed $var, array $posibles, int $tipo = 1): bool{
+    //si el array es de elementos es de tipo 1 p de claves de tipo 2 devolvemos
+    if ($tipo === 1) {
+        return in_array($var, $posibles, true);
+    }
+
+    if ($tipo === 2) {
+        return array_key_exists($var, $posibles);
+    }
+
+    //si no devolvemos false directamente
+    return false;
+}
