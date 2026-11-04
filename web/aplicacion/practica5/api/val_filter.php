@@ -70,3 +70,104 @@ function validaReal(float &$var, float $min, float $max, float $defecto): bool
     $var = $defecto;
     return false;
 }
+
+/**
+ * function validaFecha(string &$var, string $defecto):bool Esta función comprueba que $var
+ *contiene una fecha correcta en el formato dd/mm/aaaa. En $var se devuelve la fecha saneada
+ *(2 cifras para dia y mes y cuatro para año- ej fecha 1/2/2023 es válida aunque se sanea y se
+ *convierte en 01/02/2023). En caso de no cumplir las condiciones devuelve $defecto en
+ *$var. La función devuelve true si es correcta y false en caso contrario.
+ *
+ * NO EXISTE EN LA LIBRERIA FILTER NADA PARA VERIFICAR FECHA
+ * 
+ * @param string $var
+ * @param string $defecto
+ * @return boolean
+ */
+ function validaFecha(string &$var, string $defecto):bool{
+    // Divide la fecha usando "/" como separador
+    $fecha = mb_split("/", trim($var));
+
+    // Debe tener exactamente 3 partes -> día, mes y año
+    if (count($fecha) == 3) {
+
+        // El año debe tener exactamente 4 cifras
+        if (mb_strlen($fecha[2]) != 4) {
+            $var = $defecto;
+            return false;
+        }
+
+        // Si el día tiene una cifra añadimos un 0 delante
+        if (mb_strlen($fecha[0]) == 1) {
+            $fecha[0] = "0" . $fecha[0];
+        }
+
+        // Si el mes tiene una cifra añadimos un 0 delante
+        if (mb_strlen($fecha[1]) == 1) {
+            $fecha[1] = "0" . $fecha[1];
+        }
+
+        // Comprueba que la fecha exista realmente checkdate(mes, dia, año)
+        if (checkdate((int)$fecha[1],(int)$fecha[0],(int)$fecha[2])) {
+            $var = $fecha[0] . "/" . $fecha[1] . "/" .$fecha[2];
+            return true;
+        }
+    }
+
+    //si fecha no es valida cambiamos por la defecto 
+    $var = $defecto;
+    return false;
+ }
+
+/**
+ * function validaHora(string &$var, string $defecto):bool Esta función comprueba que $var
+ *contiene una hora correcta en el formato hh:mm:ss . En $var se devuelve la hora saneada (2
+ *cifras para hora, min, segundos - Ej 0:5:1, hora valida aunque se sanea y se convierte a
+ *00:05:01). En caso de no cumplir las condiciones devuelve $defecto en $var. La función
+ *devuelve true si es correcta y false en caso contrario
+ *
+ *  NO EXISTE EN LA LIBRERIA FILTER NADA PARA VERIFICAR HORA
+ * 
+ * @param  $var
+ * @param string $defecto
+ * @return boolean
+ */
+function validaHora(string &$var, string $defecto): bool{
+    // Divide la hora usando ":" como separador
+    $hora = mb_split(":", trim($var));
+
+    // Debe tener exactamente 3 partes ->hora, minuto y segundo
+    if (count($hora) == 3) {
+
+        // Si la hora tiene una sola cifra, añade un 0 delante
+        if (mb_strlen($hora[0]) == 1) {
+            $hora[0] = "0" . $hora[0];
+        }
+
+        // Si los minutos tienen una sola cifra, añade un 0 delante
+        if (mb_strlen($hora[1]) == 1) {
+            $hora[1] = "0" . $hora[1];
+        }
+
+        // Si los segundos tienen una sola cifra, añade un 0 delante
+        if (mb_strlen($hora[2]) == 1) {
+            $hora[2] = "0" . $hora[2];
+        }
+
+        // Convierte los valores a enteros para comprobar rangos
+        $h = (int)$hora[0];
+        $m = (int)$hora[1];
+        $s = (int)$hora[2];
+
+        // Comprueba que la hora sea válida
+        if ($h >= 0 && $h <= 23 && $m >= 0 && $m <= 59 && $s >= 0 && $s <= 59) {
+
+            $var = $hora[0] . ":" . $hora[1] . ":" . $hora[2];
+            return true;
+        }
+    }
+
+    // Si la hora no es valida cambiamos por defecto y devolvemos false
+    $var = $defecto;
+    return false;
+}
