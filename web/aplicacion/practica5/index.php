@@ -24,5 +24,11 @@ function cabecera() {}
 function cuerpo()
 {
 ?>
+<h1 id="TituloCuerpo">Relación 5: Introducción de información.</h1>
+    <ul>
+         <p>Lo he partido en dos clases para poder hacer bien las pruebas del ejercicio 1 </p>
+         <li><a href="ejercicio1.php">Ejercicio 1</a><br></li> 
+         <li><a href="ejercicio2.php">Ejercicio 2</a><br></li> 
+   </ul>
 <?php
 }
