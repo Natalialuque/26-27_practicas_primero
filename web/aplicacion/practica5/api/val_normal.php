@@ -244,5 +244,6 @@ function validaRango(mixed $var, array $posibles, int $tipo = 1): bool{
         return array_key_exists($var, $posibles);
     }
 
+    //si no devolvemos false directamente
     return false;
 }

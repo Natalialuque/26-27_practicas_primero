@@ -55,8 +55,7 @@ function validaEntero(int &$var, int $min, int $max, int $defecto): bool{
   * @return boolean
   */
 
-function validaReal(float &$var, float $min, float $max, float $defecto): bool
-{
+function validaReal(float &$var, float $min, float $max, float $defecto): bool{
     // Comprobamos que el valor sea un número real válido
     $resultado = filter_var($var, FILTER_VALIDATE_FLOAT);
 

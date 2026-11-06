@@ -16,8 +16,8 @@ inicioCabecera("APLICACION PRIMER TRIMESTRE");
 //barra de ubicacion logica que nos indica donde estamos
  $ubicacion = [
  "pagina principal"=> "../../index.php",
- "relacion 1"=> "./index.php",
- "Ejercicio 1"=>"ejercicio1.php"
+ "relacion 5"=> "./index.php",
+ "Ejercicio 1" => "ejercicio 1"
 
  ];
 
