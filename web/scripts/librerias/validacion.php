@@ -1,6 +1,4 @@
 <?php 
-//espacio de nombres para poder llamarlas para probarla y diferenciar la libreria 
-namespace VALNORMAL;
 
 /**
  * function validaEntero(int &$var, int $min, int $max, int $defecto):bool Esta función
