@@ -71,11 +71,259 @@ if (isset($_POST["crear"])) {
     }
 
     // Guardamos el valor 
-    $datos["nombre"] = $nombre;
+    $valores["nombre"] = $nombre;
 
     /**
-     * CONTRASEÑA
+     * PASSWORD
      */
+    $password = "";
+    $defectoPassword = "PASSWORD_INVALIDA";
+    $expre = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\$_\-;<>@]).{8,15}$/';
+
+    if (isset($_POST["password"])) {
+
+        // Recogemos la contraseña eliminando espacios del principio y al final
+        $password = trim($_POST["password"]);
+
+        // Comprobamos que no esté vacía
+        if ($password === "") {
+
+            $errores["password"][] = "La contraseña no puede estar vacía";
+
+        // Comprobamos longitud máxima indicada en el ejercicio
+        } elseif (!validaCadena($password, 15, $defectoPassword)) {
+
+            $errores["password"][] = "La contraseña debe tener como máximo 15 caracteres";
+
+            // Comprobamos que sea validad
+        } elseif (!validaExpresion($password,$expre,$defectoPassword)) {
+            $errores["password"][] ="La contraseña debe tener entre 8 y 15 caracteres, una mayúscula, una minúscula, una cifra y un carácter especial";
+        }
+    }
+
+    //Guardamos el valor 
+    $valores["password"] = $password;
+
+    /**
+     * FECHA NACIMIENTO 
+     */
+    $fechaNacimiento = "";
+    $defectoFechaNacimiento = "FECHA_INVALIDA";
+
+    // Comprobamos si se ha enviado el campo
+    if (isset($_POST["fecha_nacimiento"])) {
+
+        // Eliminamos espacios al principio y al final
+        $fechaNacimiento = trim($_POST["fecha_nacimiento"]);
+
+        // Comprobamos que no este vacía
+        if ($fechaNacimiento === "") {
+
+            $errores["fecha_nacimiento"][] ="La fecha de nacimiento no puede estar vacía";
+
+            // Comprobamos que sea una fecha válida usando la función de la librería
+        } elseif (!validaFecha($fechaNacimiento, $defectoFechaNacimiento)) {
+
+            $errores["fecha_nacimiento"][] ="La fecha de nacimiento no es válida";
+        }
+    }
+
+    //Guardamos el valor 
+    $valores["fecha_nacimiento"] = $fechaNacimiento;
+
+    /**
+     * FECHA CARNET
+     */
+    $fechaCarnet = "";
+
+    // Recogemos los tres elementos del formulario
+    $diaCarnet = $_POST["fecha_carnet"]["dia"] ?? "";
+    $mesCarnet = $_POST["fecha_carnet"]["mes"] ?? "";
+    $anioCarnet = $_POST["fecha_carnet"]["anio"] ?? "";
+
+    if ($diaCarnet !== "" && $mesCarnet !== "" && $anioCarnet !== "") {
+
+        // Comprobamos que exista la fecha
+        if (checkdate((int)$mesCarnet, (int)$diaCarnet, (int)$anioCarnet)) {
+
+            $fechaCarnetObj =DateTime::createFromFormat("d/m/Y","$diaCarnet/$mesCarnet/$anioCarnet");
+
+            // Solo si la fecha de nacimiento es correcta
+            if (!isset($errores["fecha_nacimiento"])) {
+
+                $fechaNacimientoObj = DateTime::createFromFormat("d/m/Y",$valores["fecha_nacimiento"]);
+
+                // Fecha nacimiento + 18 años
+                $mayoriaEdadObj = clone $fechaNacimientoObj;
+
+                $mayoriaEdadObj->add(new DateInterval("P18Y") );
+
+                // Comprobamos si tenía 18 años
+                if ($fechaCarnetObj < $mayoriaEdadObj) {
+
+                    $errores["fecha_carnet"][] ="La fecha del carnet debe ser posterior a la mayoría de edad";
+                } else {
+
+                    $fechaCarnet = $fechaCarnetObj->format("d/m/Y");
+                }
+            } else {
+
+                $errores["fecha_carnet"][] ="La fecha de nacimiento no es válida";
+            }
+        } else {
+
+            $errores["fecha_carnet"][] ="La fecha del carnet no es válida";
+        }
+    } else {
+
+        $errores["fecha_carnet"][] ="Debes indicar día, mes y año";
+    }
+
+    // Guardamos los valores para volver a pintar el formulario
+
+    $valores["fecha_carnet"]["dia"] = $diaCarnet;
+    $valores["fecha_carnet"]["mes"] = $mesCarnet;
+    $valores["fecha_carnet"]["anio"] = $anioCarnet;
+
+    /**
+     *HORA
+     */
+    $horaLevantarse = "";
+    $defectoHora = "HORA_INVALIDA";
+
+    // Comprobamos que se ha enviado el campo
+    if (isset($_POST["hora_levantarse"])) {
+
+        // Eliminamos espacios en blanco
+        $horaLevantarse = trim($_POST["hora_levantarse"]);
+
+        // Comprobamos que no esté vacío
+        if ($horaLevantarse === "") {
+
+            $errores["hora_levantarse"][] ="La hora de levantarse es obligatoria";
+
+            // Comprobamos que la hora sea válida
+        } elseif (!validaHora($horaLevantarse, $defectoHora)) {
+
+            $errores["hora_levantarse"][] ="La hora introducida no es válida";
+        }
+    }
+
+    // Guardamos el valor saneado
+    $valores["hora_levantarse"] = $horaLevantarse;
+
+    /**
+     * ESTADO
+     */
+    $estado = "";
+
+    // Estados permitidos segun el enunciado
+    $estadosValidos = [1, 2, 3, 4];
+
+    if (isset($_POST["estado"])) {
+
+        $estado = (int)$_POST["estado"];
+
+        // Comprobamos que el valor esté dentro
+        // de los estados permitidos
+        if (!validaRango($estado, $estadosValidos)) {
+
+            $errores["estado"][] ="Debe seleccionar un estado válido";
+        }
+    } else {
+
+        // No ha seleccionado ningún radio button
+        $errores["estado"][] ="Debe seleccionar un estado";
+    }
+
+    // Guardamos el valor
+    $valores["estado"] = $estado;
+
+    /**
+     * ESTUDIOS
+     */
+    $estudios = [];
+    $estudiosValidos = [0, 1, 2, 3, 4, 5];
+
+    // Recogemos los checkbox seleccionados
+    if (isset($_POST["estudios"])) {
+
+        $estudios = $_POST["estudios"];
+
+        // Convertimos todos a entero
+        $estudios = array_map("intval", $estudios);
+
+        // Debe haber al menos uno seleccionado
+        if (count($estudios) == 0) {
+
+            $errores["estudios"][] ="Debe seleccionar al menos un estudio";
+        } else {
+
+            // Comprobar valores válidos
+            foreach ($estudios as $estudio) {
+
+                if (!in_array($estudio, $estudiosValidos)) {
+
+                    $errores["estudios"][] = "Existe una opción de estudios no válida";
+
+                    break;
+                }
+            }
+
+            // Si marca "Sin estudios" (0) no puede haber ninguna otra opción
+            if ( in_array(0, $estudios)&& count($estudios) > 1) {
+                $errores["estudios"][] = "Si selecciona Sin estudios no puede marcar ninguna otra opción";
+            }
+        }
+    } else {
+
+        $errores["estudios"][] ="Debe seleccionar al menos un estudio";
+    }
+
+    // Guardamos el valor para repintar el formulario
+
+    $valores["estudios"] = $estudios;
+
+    /**
+     * NUMERO HERMANOS 
+     */
+
+    $hermanos = 0;
+    $defectoHermanos = 0;
+
+    if (isset($_POST["hermanos"])) {
+
+        $hermanos = $_POST["hermanos"];
+
+        // Comprobamos que sea un entero entre 0 y 20
+        if (!validaEntero($hermanos, 0, 20, $defectoHermanos)) {
+
+            $errores["hermanos"][] ="El número de hermanos debe estar entre 0 y 20";
+        }
+    }
+
+    // Guardamos el valor saneado
+    $valores["hermanos"] = $hermanos;
+
+    /**
+     * SUELDO
+     */
+    $sueldo = 1100;
+    $defectoSueldo = 1100;
+
+    if (isset($_POST["sueldo"])) {
+
+        $sueldo = $_POST["sueldo"];
+
+        // Comprobamos que sea un real entre 1000 y 150000 euros
+        if (!validaReal($sueldo, 1000, 150000, $defectoSueldo)) {
+
+            $errores["sueldo"][] ="El sueldo debe estar entre 1000 y 150000 euros";
+        }
+    }
+
+    // Guardamos el valor saneado
+    $valores["sueldo"] = $sueldo;
 
 }
 
@@ -89,14 +337,13 @@ finCuerpo();
 
 function cabecera() {}
 //vista
-function cuerpo($valores, $errores)
-{
+function cuerpo($valores, $errores){
 ?>
 
 <?php
 
     //if (empty($errores) && isset($_POST["crear"])) {
-    //resumen($datos);
+    //resumen($valores);
     //} else {
     formulario($valores, $errores);
     //}
@@ -105,7 +352,7 @@ function cuerpo($valores, $errores)
 /**
  *  FUNCION DONDE VAMOS A CREAR EL FORMULARIO
  *
- * @param [type] $datos
+ * @param [type] $valores
  * @param [type] $errores
  * @return void
  */
@@ -113,10 +360,12 @@ function formulario($valores, $errores)
 {
     /**Esto es para los errores y no estar repitiendolo constantemente  */
     if (!empty($errores)) {
-        echo "<div class='error'>";
-        foreach ($errores as $clave => $error) {
-            echo "$clave => $error<br>";
+    echo "<div class='error'>";
+    foreach ($errores as $campo => $listaErrores) {
+        foreach ($listaErrores as $error) {
+            echo "$campo => $error<br>";
         }
+    }
         echo "</div>";
     }
 ?>
