@@ -12,7 +12,9 @@ $ubicacion = [
 
 ];
 
-//controlador
+/**
+ * controlador
+ */
 $valores = [
     "nombre" => "",
     "password" => "",
@@ -33,7 +35,7 @@ $errores = [];
 
 /**
  * HACEMOS LAS VERIFICACION CUANDO PULSAMOS EL BOTON CREAR
- * Usamos la clase de validacion para dar errores  
+ * Usamos la clase de validacion para comprobar errores
  */
 if (isset($_POST["crear"])) {
 
@@ -327,6 +329,82 @@ if (isset($_POST["crear"])) {
 
 }
 
+/**
+ * FUNCION RESUMEN --> esta funcion nos permite mostrar los datos de la 
+ *
+ * @param array $valores
+ * @return void
+ */
+function resumen(array $valores): void{
+    
+    // Relación entre el codigo del estado y su descripción
+    $estadoTexto = [
+        1 => "Estudiante",
+        2 => "En paro",
+        3 => "Trabajando",
+        4 => "Jubilado"
+    ];
+
+    // Relación entre el codigo de estudios y su descripción
+    $estudiosTexto = [
+        0 => "Sin estudios",
+        1 => "Primaria",
+        2 => "Secundaria",
+        3 => "Bachillerato",
+        4 => "Ciclo formativo",
+        5 => "Universitarios"
+    ];
+
+    echo "<h2>Resumen de datos introducidos</h2>";
+
+    // Mostrar nombre
+    echo "<p><strong>Nombre:</strong> {$valores['nombre']}</p>";
+
+    // Mostrar contraseña
+    echo "<p><strong>Contraseña:</strong> {$valores['password']}</p>";
+
+    // Mostrar fecha de nacimiento
+    echo "<p><strong>Fecha de nacimiento:</strong>
+            {$valores['fecha_nacimiento']}
+          </p>";
+
+    // Mostrar fecha de carnet formada por día, mes y año
+    echo "<p><strong>Fecha de carnet:</strong> "
+            . $valores['fecha_carnet']['dia'] . "/"
+            . $valores['fecha_carnet']['mes'] . "/"
+            . $valores['fecha_carnet']['anio']
+            . "</p>";
+
+    // Mostrar hora de levantarse
+    echo "<p><strong>Hora de levantarse:</strong>
+            {$valores['hora_levantarse']}
+          </p>";
+
+    // Mostrar estado
+    echo "<p><strong>Estado:</strong> "
+            . $estadoTexto[$valores['estado']]
+            . "</p>";
+
+    // Mostrar estudios 
+    echo "<p><strong>Estudios:</strong></p>";
+    echo "<ul>";
+
+    foreach ($valores['estudios'] as $codigo) {
+        echo "<li>{$estudiosTexto[$codigo]}</li>";
+    }
+
+    echo "</ul>";
+
+    // Mostrar número de hermanos
+    echo "<p><strong>Hermanos:</strong>
+            {$valores['hermanos']}
+          </p>";
+
+    // Mostrar sueldo con formato español
+    echo "<p><strong>Sueldo:</strong> " . number_format((float)$valores['sueldo'],2,',','.'). " €</p>";
+}
+
+// **********************************************************
 cabecera();
 finCabecera();
 inicioCuerpo("2DAW APLICACION", $ubicacion);
@@ -339,21 +417,20 @@ function cabecera() {}
 //vista
 function cuerpo($valores, $errores){
 ?>
-
 <?php
-
-    //if (empty($errores) && isset($_POST["crear"])) {
-    //resumen($valores);
-    //} else {
-    formulario($valores, $errores);
-    //}
+    //si todo esta corecto y se pulsa el boton crear mostramos el resumen, si no lo esta el formulario con los datos y los errores 
+    if (empty($errores) && isset($_POST["crear"])) {
+        resumen($valores);
+    } else {
+        formulario($valores, $errores);
+    }
 }
 
 /**
  *  FUNCION DONDE VAMOS A CREAR EL FORMULARIO
  *
- * @param [type] $valores
- * @param [type] $errores
+ * @param $valores
+ * @param $errores
  * @return void
  */
 function formulario($valores, $errores)
