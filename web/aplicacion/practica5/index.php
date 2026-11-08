@@ -1,0 +1,34 @@
+<?php
+include_once(dirname(__FILE__) . "/../../cabecera.php");
+//controlador
+//dibuja la plantilla de la vista
+inicioCabecera("APLICACION PRIMER TRIMESTRE");
+//barra de ubicacion logica que nos indica donde estamos
+ $ubicacion = [
+ "pagina principal"=> "../../index.php",
+ "Practica 5"=> "./index.php"
+
+ ];
+
+
+cabecera();
+finCabecera();
+inicioCuerpo("2DAW APLICACION",$ubicacion);
+cuerpo(); //llamo a la vista
+finCuerpo();
+// **********************************************************
+////vista cabecera donde podemos ver otros enlaces 
+
+function cabecera() {}
+//vista
+function cuerpo()
+{
+?>
+<h1 id="TituloCuerpo">Relación 5: Introducción de información.</h1>
+    <ul>
+         <p>Lo he partido en dos clases para poder hacer bien las pruebas del ejercicio 1 </p>
+         <li><a href="ejercicio1.php">Ejercicio 1</a><br></li> 
+         <li><a href="ejercicio2.php">Ejercicio 2</a><br></li> 
+   </ul>
+<?php
+}

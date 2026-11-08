@@ -1,7 +1,9 @@
 <?php
-//Definimos la clase de serie de fibonacci
+/**
+ * Definimos la clase de serie de fibonacci
+ */
 class SerieFibonacci implements Iterator{
-    
+
     /**
      * PROPIEDADES --> todas privadas
      * @var integer
@@ -56,7 +58,7 @@ class SerieFibonacci implements Iterator{
      */
 
     /**
-     * Calcula el valor de Fibonacci para una posición concreta.
+     * Calcula el valor de Fibonacci para una posición concreta
      * @param int 
      * @return int 
      */
@@ -90,7 +92,7 @@ class SerieFibonacci implements Iterator{
     }
 
     /**
-     * Generador estático de la serie Fibonacci.
+     * Generador estático de la serie Fibonacci
      *
      * Genera valores utilizando yield para poder recorrer
      * la serie mediante foreach sin almacenar todos

@@ -21,6 +21,7 @@ function cuerpo()
     <a href="basicas.php">funcionamiento</a>
     <a href="cadenas.php">cadenas</a>
     <a href="ClasePrueba.php">cadenas</a>
+    <a href="pagFormulario.php">formulario</a>
 
 
 
