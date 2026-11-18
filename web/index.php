@@ -31,6 +31,7 @@ function cuerpo()
         <li><a href="/aplicacion/practica3/index.php">Práctica 3</a></li> 
         <li><a href="/aplicacion/practica4/index.php">Práctica 4</a></li> 
         <li><a href="/aplicacion/practica5/index.php">Práctica 5</a></li> 
+        <li><a href="/aplicacion/practica7/index.php">Práctica 7</a></li> 
 
     </ul>   
         <br><br>
