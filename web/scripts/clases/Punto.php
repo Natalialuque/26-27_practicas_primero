@@ -31,21 +31,19 @@ class Punto{
      * METODO MAGICO __CONSTRUCT --> se encarga de asignar los valor mediante setter, debemos usar excepciones 
      */
      public function __construct(int $x, int $y, string $color, int $grosor){
-        if($this->setX($x)){
+        if(!$this->setX($x)){
             throw new Exception("Valor de X invalido");
         }
-        if($this->setY($y)){
+        if(!$this->setY($y)){
             throw new Exception("Valor de Y invalido");
         } 
-        if($this->setColor($color)) {
+        if(!$this->setColor($color)) {
             throw new Exception("Valor de Color invalido");
         } 
-        if($this->setGrosor($grosor)){
+        if(!$this->setGrosor($grosor)){
             throw new Exception("Valor de Grosor invalido");
         }
     }
-
-
 
     /**
      * 
@@ -72,7 +70,7 @@ class Punto{
     public function setX(int $x):bool{
 
         //verificamos rango
-        if(!validaRango($x,[0,20000])){
+        if(!validaEntero($x,0,20000,0)){
             return false;
         }
 
@@ -97,7 +95,7 @@ class Punto{
     public function setY(int $y):bool{
 
         //verificamos rango
-        if(!validaRango($y,[0,20000])){
+        if(!validaEntero($y,0,20000,0)){
             return false;
         }
 
@@ -121,7 +119,7 @@ class Punto{
      * @return boolean
      */
    public function setColor(string $color): bool{
-        //si existe lo asinamos
+        //si existe lo asiGnamos
         if (array_key_exists($color, self::COLORES)) {
             $this->_color = $color;
             return true;
