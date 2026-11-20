@@ -3,8 +3,7 @@ include_once(dirname(__FILE__) . "/../../cabecera.php");
 require_once(dirname(__FILE__) . "/../../scripts/clases/Punto.php");
 
 //controlador
-//dibuja la plantilla de la vista
-inicioCabecera("APLICACION PRIMER TRIMESTRE");
+
 //barra de ubicacion logica que nos indica donde estamos
 $ubicacion = [
     "pagina principal" => "../../index.php",
@@ -37,6 +36,12 @@ $datos = [
 
 //errores
 $errores = [];
+
+//Cargamos los puntos previamente guardados en el .dat, si existe
+if (file_exists(obtenerRutaFichero())) {
+    $puntos = cargarPuntos();
+}
+
 
 
 /**
@@ -133,13 +138,23 @@ if (isset($_POST["guardar"])) {
             (int)$datos["grosor"]
         );
         $puntos[] = $punto;
+        guardarPuntos($puntos);
     }
 }
-$puntos = cargarPuntos();
-$rutaImagen = crearImagen($puntos);
+
+/**
+ * Para meter la ruta de la imagen
+ */
+$rutaImagen = "";
+
+// Generamos la imagen solo si hay puntos que dibujar
+if (!empty($puntos)) {
+    $rutaImagen = CrearImagen($puntos);
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+inicioCabecera("APLICACION PRIMER TRIMESTRE");
 cabecera();
 finCabecera();
 inicioCuerpo("2DAW APLICACION", $ubicacion);
@@ -150,10 +165,12 @@ finCuerpo();
 
 function cabecera() {}
 //vista
-function cuerpo($errores, $datos, $puntos,$rutaImagen)
-{
+function cuerpo($errores, $datos, $puntos,$rutaImagen){
 
-    formulario($errores, $datos, $puntos,$rutaImagen);
+    formulario($errores, $datos);
+    TextAreaPuntos($puntos);
+    mostrarImagen($rutaImagen);
+
 }
 
 
@@ -164,7 +181,7 @@ function cuerpo($errores, $datos, $puntos,$rutaImagen)
  *
  * @return void
  */
-function formulario(array $errores, array $datos, array $puntos,$rutaImagen)
+function formulario(array $errores, array $datos)
 {
 ?>
     <!-- Formulario en el que pedimos los valores -->
@@ -263,26 +280,6 @@ function formulario(array $errores, array $datos, array $puntos,$rutaImagen)
             <p>
                 <input type="submit" name="guardar" value="Guardar">
             </p>
-
-            <!-- TEXT AREA A MOSTRAR LOS PUNTOS CREADOS -->
-            <textarea rows="10" cols="50">
-
-                    <?php
-
-                        foreach ($puntos as $punto) {
-
-                            echo $punto->getX(). "; "
-                                . $punto->getY(). "; "
-                                . $punto->getColor(). "; "
-                                . $punto->getGrosor()
-                                . PHP_EOL;
-                        }
-
-                    ?>
-
-            </textarea>
-            <img src="<?= $rutaImagen ?>" alt="puntos">
-
         </fieldset>
 
     </form>
@@ -290,10 +287,78 @@ function formulario(array $errores, array $datos, array $puntos,$rutaImagen)
 <?php
 }
 
-
 /**
  * EJERCICIO 2 --> 
  */
+
+/**
+ * Muestra los puntos guardados en un textarea de solo lectura
+ */
+function TextAreaPuntos(array $puntos){
+?>
+    <fieldset>
+        <legend>Puntos guardados</legend>
+        <textarea rows="10" cols="50" readonly><?php
+            foreach ($puntos as $punto) {
+                echo $punto->getX() . "; "
+                    . $punto->getY() . "; "
+                    . $punto->getColor() . "; "
+                    . $punto->getGrosor()
+                    . PHP_EOL;
+            }
+        ?></textarea>
+    </fieldset>
+<?php
+}
+
+/**
+ * Muestra la imagen con los puntos (solo si existe)
+ */
+function mostrarImagen(string $rutaImagen){
+    if ($rutaImagen !== "") {
+?>
+        <fieldset>
+            <legend>Imagen</legend>
+            <img src="<?= $rutaImagen ?>" alt="puntos">
+        </fieldset>
+<?php
+    }
+}
+
+
+/**
+ *  funcion que saca el nombre del archivo deseado .jpg
+ *
+ * @return string
+ */
+function nombreArchivo(): string{
+    $ip = str_replace(".", "_", $_SERVER['REMOTE_ADDR']);
+
+    $agente = $_SERVER['HTTP_USER_AGENT'];
+
+    $navegador = "desconocido";
+
+    if (strpos($agente, 'Chrome') !== false &&
+        strpos($agente, 'Edg') === false) {
+
+        $navegador = "chrome";
+
+    } elseif (strpos($agente, 'Firefox') !== false) {
+
+        $navegador = "firefox";
+
+    } elseif (strpos($agente, 'Safari') !== false &&
+              strpos($agente, 'Chrome') === false) {
+
+        $navegador = "safari";
+
+    } elseif (strpos($agente, 'Edg') !== false) {
+
+        $navegador = "edge";
+    }
+
+    return $ip . "_" . $navegador;
+}
 
 
 /**
@@ -302,73 +367,60 @@ function formulario(array $errores, array $datos, array $puntos,$rutaImagen)
  * @param array $puntos
  * @return string
  */
-function crearImagen(array $puntos): string{
-    // Ruta física donde se guardará la imagen en el servidor
-    $ruta = $_SERVER["DOCUMENT_ROOT"] .
-        "/imagenes/puntos/imagen.jpg";
+function CrearImagen(array $puntos): string{
+    // Carpeta física donde se guardan las imágenes
+    $carpeta = dirname(__FILE__) . "/imagenes";
 
-    // Creamos una imagen de 500x500 píxeles
+    // Si no existe la carpeta, la creamos
+    if (!is_dir($carpeta)) {
+        mkdir($carpeta, 0777, true);
+    }
+
+    // Nombre del archivo único por cliente
+    $nombreArchivo = "puntos_" . nombreArchivo() . ".jpg";
+
+    // Ruta física (para guardar con GD)
+    $rutaFisica = $carpeta . "/" . $nombreArchivo;
+
+    // Creamos un lienzo de 500x500 píxeles
     $imagen = imagecreatetruecolor(500, 500);
 
-    // Definimos el color blanco (RGB)
     $blanco = imagecolorallocate($imagen, 255, 255, 255);
+    $negro  = imagecolorallocate($imagen, 0, 0, 0);
 
-    // Rellenamos toda la imagen de color blanco
     imagefill($imagen, 0, 0, $blanco);
 
-    // Definimos el color negro para el marco
-    $negro = imagecolorallocate($imagen, 0, 0, 0);
-
-    // Dibujamos un rectángulo que servirá de borde
-    imagerectangle(
-        $imagen,
-        0,
-        0,
-        499,
-        499,
-        $negro
-    );
-
-    // Recorremos todos los puntos almacenados
     foreach ($puntos as $punto) {
 
-        // Color del punto.
         $rgb = Punto::COLORES[$punto->getColor()]["rgb"];
-        $color = imagecolorallocate(
-                $imagen,
-                $rgb[0],
-                $rgb[1],
-                $rgb[2]
-        );
 
+        $color = imagecolorallocate($imagen, $rgb[0], $rgb[1], $rgb[2]);
 
-        // Establecemos el grosor del dibujo
-        imagesetthickness(
-            $imagen,
-            $punto->getGrosor()
-        );
+        // fino = 4px, medio = 8px, grueso = 12px
+        $diametro = $punto->getGrosor() * 4;
 
-        // Dibujamos un círculo relleno en la posición X,Y
         imagefilledellipse(
             $imagen,
             $punto->getX(),
             $punto->getY(),
-            5,      // ancho del punto
-            5,      // alto del punto
+            $diametro,
+            $diametro,
             $color
         );
     }
 
-    // Guardamos la imagen en formato JPG
-    imagejpeg($imagen, $ruta);
+    // Borde negro
+    imagerectangle($imagen, 0, 0, 499, 499, $negro);
 
-    // Liberamos la memoria utilizada por la imagen
+    // Guardamos la imagen
+    imagejpeg($imagen, $rutaFisica);
+
     imagedestroy($imagen);
 
-    // Devolvemos la ruta que usará el navegador para mostrarla
-    return "/imagenes/puntos/imagen.jpg";
+    // Devolvemos la ruta WEB relativa al index.php actual
+    // El ?v=time() evita que el navegador use una versión en caché
+    return "imagenes/" . $nombreArchivo . "?v=" . time();
 }
-
 
 /**
  * 
@@ -378,8 +430,12 @@ function crearImagen(array $puntos): string{
 
 //Funcion para obtener la ruta del fichero
 function obtenerRutaFichero(): string{
-    return dirname(__FILE__) . "/datos/puntos.dat";
+    return dirname(__FILE__) .
+           "/datos/puntos_" .
+           nombreArchivo() .
+           ".dat";
 }
+
 
 /**
  * Carga los puntos almacenados en el fichero .dat
@@ -428,4 +484,40 @@ function cargarPuntos(): array
     }
 
     return $puntos;
+}
+
+/**
+ * Guarda todos los puntos en el fichero .dat
+ *
+ * @param array $puntos
+ * @return void
+ */
+function guardarPuntos(array $puntos): void{
+
+    // Obtenemos la ruta del fichero donde se guardan los puntos
+    $ruta = obtenerRutaFichero();
+
+    // Abrimos el fichero en modo "w" (escritura):
+    // - si no existe, lo crea
+    // - si existe, borra todo su contenido y empieza desde cero
+    // Por eso después hay que escribir TODOS los puntos, no solo el nuevo
+    $fichero = fopen($ruta, "w");
+
+    // Recorremos todos los puntos del array
+    foreach ($puntos as $punto) {
+
+        // Construimos la línea con los datos del punto separados por ";"
+        $linea =
+            $punto->getX() . ";" .
+            $punto->getY() . ";" .
+            $punto->getColor() . ";" .
+            $punto->getGrosor() .
+            PHP_EOL;
+
+        // Escribimos la línea en el fichero
+        fputs($fichero, $linea);
+    }
+
+    // Cerramos el fichero 
+    fclose($fichero);
 }
