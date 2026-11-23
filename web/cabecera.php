@@ -15,7 +15,7 @@ spl_autoload_register(function ($clase){
     //la carga de la carpeta scripts donde tenemos la carpeta clases 
     $ruta=RUTABASE."/scripts/clases/";
     $fichero=$ruta."$clase.php";
-    
+    //
     if (file_exists($fichero))
         {
             require_once($fichero);
@@ -27,5 +27,7 @@ spl_autoload_register(function ($clase){
 });
 
 include(RUTABASE."/aplicacion/plantilla/plantilla.php");
+include(RUTABASE."/scripts/librerias/validacion.php");
+
 
 //creo todos los objetos que necesita mi aplicación

@@ -12,7 +12,7 @@
  * @param integer $defecto
  * @return boolean
  */
-function validaEntero(int &$var, int $min, int $max, int $defecto): bool{
+function validaEntero(int $var, int $min, int $max, int $defecto): bool{
     
     // Comprobamos si el valor está dentro del rango permitido
     if (is_int($var) && $var >= $min && $var <= $max) {

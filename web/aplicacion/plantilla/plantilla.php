@@ -70,6 +70,7 @@ function inicioCuerpo($cabecera,?array $ubicacion = null)
                         <li><a href="/aplicacion/practica3/index.php">Practica 3</a></li>
                         <li><a href="/aplicacion/practica4/index.php">Practica 4</a></li>
                         <li><a href="/aplicacion/practica5/index.php">Practica 5</a></li>
+                        <li><a href="/aplicacion/practica7/index.php">Practica 7</a></li>
 
 
                     </ul>
