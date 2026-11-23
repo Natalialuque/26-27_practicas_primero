@@ -47,6 +47,10 @@ if (file_exists(obtenerRutaFichero())) {
     $puntos = cargarPuntos();
 }
 
+// Si hay puntos guardados, cargamos también la imagen
+if (!empty($puntos)) {
+    $rutaImagen = CrearImagen($puntos);
+}
 
 
 /**
@@ -179,24 +183,14 @@ if (isset($_POST["eliminar"])) {
 
 
 /**
- * DESCARGAR --> cuando pulsamos descargar se encargar de meter el nombre del archivo y de deolver la imagen
- */
-if (isset($_POST["descargar"])) {
-    header('Content-Type: image/jpg');
-    header('Content-Disposition: attachment; filename="'. nombreArchivo() .'"');
-
-    devuelveImagen($puntos);
-    exit;
-}
-
-/**
  * SUBIR
  */
-if (isset($_POST["subirArch"])) {
+ if (isset($_POST["subirArch"])) {
+
     procesarSubidaArchivo($puntos, $errores);
     if (!empty($puntos)) {
-    $rutaImagen = CrearImagen($puntos);
-}
+     $rutaImagen = CrearImagen($puntos);
+ }
 }
 
 
@@ -227,15 +221,12 @@ function cuerpo($errores, $datos, $puntos,$rutaImagen){
 }
 
 
-
-
 /**
  * FORMULARIO --> funcion donde vamos a crear un formulario que vamos a mostrar por pantalla para que el usuario introduzca los datos
  *
  * @return void
  */
-function formulario(array $errores, array $datos)
-{
+function formulario(array $errores, array $datos){
 ?>
     <!-- Formulario en el que pedimos los valores -->
     <form action="" method="post">
@@ -428,7 +419,7 @@ function nombreArchivo(): string{
  */
 function CrearImagen(array $puntos): string{
     // Carpeta física donde se guardan las imágenes
-    $carpeta = dirname(__FILE__) . "/imagenes";
+    $carpeta = dirname(__FILE__) . "/../../imagenes/puntos/";
 
     // Si no existe la carpeta, la creamos
     if (!is_dir($carpeta)) {
@@ -477,7 +468,7 @@ function CrearImagen(array $puntos): string{
     imagedestroy($imagen);
 
     // Devolvemos la ruta WEB relativa al index.php actual
-    return "imagenes/" . $nombreArchivo . "?v=" . time();
+    return "/../../imagenes/puntos/" . $nombreArchivo . "?v=" . time();
 }
 
 /**
@@ -638,56 +629,13 @@ function descargaImg(){
 ?>
     <h2>Descargar Imagen</h2>
 
-    <form action="" method="post">
-        <input type="submit" value="Descargar" name="descargar">
+    <form action="imagen.php" method="get">
+        <input type="submit" value="Descargar">
     </form>
+
 <?php
 }
 
-/**
- * FUNCION DEVUELVE IMAGEN --> hace lo mismo que la de crear, pero pasandole solo el array 
- *
- * @param array $puntos
- * @return void
- */
-function devuelveImagen(array $puntos): void{
-    $imagen = imagecreatetruecolor(500, 500);
-
-    $blanco = imagecolorallocate($imagen, 255, 255, 255);
-    $negro = imagecolorallocate($imagen, 0, 0, 0);
-
-    imagefill($imagen, 0, 0, $blanco);
-
-    // marco
-    imagerectangle($imagen, 0, 0, 499, 499, $negro);
-
-    foreach ($puntos as $punto) {
-
-        $rgb = Punto::COLORES[$punto->getColor()]["rgb"];
-
-        $color = imagecolorallocate(
-            $imagen,
-            $rgb[0],
-            $rgb[1],
-            $rgb[2]
-        );
-
-        imagefilledellipse(
-            $imagen,
-            $punto->getX(),
-            $punto->getY(),
-            $punto->getGrosor() * 4,
-            $punto->getGrosor() * 4,
-            $color
-        );
-    }
-
-     // Borde negro
-    imagerectangle($imagen, 0, 0, 499, 499, $negro);
-
-    imagejpeg($imagen);
-    imagedestroy($imagen);
-}
 
 /**
  * 
@@ -722,86 +670,85 @@ function subirArchivo($errores) {
  * @param array $puntos   Array actual de objetos Punto.
  * @param array $errores  Array donde guardar errores.
  */
-function procesarSubidaArchivo(array &$puntos, array &$errores): void{
-    // Comprobar que se ha subido un archivo
-    if (!isset($_FILES["archivo"])) {
-        $errores["subirArch"][] = "No se ha recibido ningún archivo";
-        return;
+ function procesarSubidaArchivo(array &$puntos, array &$errores): void{
+     // Comprobar que se ha subido un archivo
+     if (!isset($_FILES["archivo"])) {
+         $errores["subirArch"][] = "No se ha recibido ningún archivo";
+         return;
     }
 
-    // Comprobar errores de subida
-    if ($_FILES["archivo"]["error"] !== UPLOAD_ERR_OK) {
-        $errores["subirArch"][] = "Error al subir el archivo";
-        return;
-    }
+     // Comprobar errores de subida
+     if ($_FILES["archivo"]["error"] !== UPLOAD_ERR_OK) {
+         $errores["subirArch"][] = "Error al subir el archivo";
+         return;
+     }
 
-    // Comprobar extensión
-    $extension = strtolower(
-        pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION)
-    );
+     // Comprobar extensión
+     $extension = strtolower(
+         pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION)
+     );
 
-    if ($extension !== "txt") {
-        $errores["subirArch"][] = "El archivo debe ser un TXT";
-        return;
-    }
+     if ($extension !== "txt") {
+         $errores["subirArch"][] = "El archivo debe ser un TXT";
+         return;
+     }
 
-    // Leer todas las líneas del fichero
-    $lineas = file($_FILES["archivo"]["tmp_name"]);
+     // Leer todas las líneas del fichero
+     $lineas = file($_FILES["archivo"]["tmp_name"]);
 
-    if ($lineas === false) {
-        $errores["subirArch"][] = "No se ha podido leer el archivo";
-        return;
-    }
+     if ($lineas === false) {
+         $errores["subirArch"][] = "No se ha podido leer el archivo";
+         return;
+     }
 
-    // Recorrer línea a línea
-    foreach ($lineas as $linea) {
+     // Recorrer línea a línea
+     foreach ($lineas as $linea) {
 
-        // Eliminar espacios y saltos de línea
-        $linea = trim($linea);
+         // Eliminar espacios y saltos de línea
+         $linea = trim($linea);
 
-        // Si la línea está vacía la ignoramos
-        if ($linea === "") {
-            continue;
-        }
+         // Si la línea está vacía la ignoramos
+         if ($linea === "") {
+             continue;
+         }
 
-        // Separar campos
-        $datos = explode(";", $linea);
+         // Separar campos
+         $datos = explode(";", $linea);
 
-        // Debe haber exactamente 4 datos
-        if (count($datos) != 4) {
-            continue;
-        }
+         // Debe haber exactamente 4 datos
+         if (count($datos) != 4) {
+             continue;
+         }
 
-        // Obtener valores
-        $x = trim($datos[0]);
-        $y = trim($datos[1]);
-        $color = trim($datos[2]);
-        $grosor = trim($datos[3]);
+         // Obtener valores
+         $x = trim($datos[0]);
+         $y = trim($datos[1]);
+         $color = trim($datos[2]);
+         $grosor = trim($datos[3]);
 
-        try {
+         try {
 
-            // Crear el objeto Punto
-            $nuevoPunto = new Punto(
-                (int)$x,
-                (int)$y,
-                $color,
-                (int)$grosor
-            );
+             // Crear el objeto Punto
+             $nuevoPunto = new Punto(
+                 (int)$x,
+                 (int)$y,
+                 $color,
+                 (int)$grosor
+             );
 
-            // Añadir al array de puntos
-            $puntos[] = $nuevoPunto;
+             // Añadir al array de puntos
+             $puntos[] = $nuevoPunto;
 
-        } catch (Exception $e) {
+         } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+         }
+     
 
-            // Si el punto es incorrecto se ignora
-            continue;
-        }
-    }
+     // Guardar todos los puntos en el fichero .dat
+     guardarPuntos($puntos);
 
-    // Guardar todos los puntos en el fichero .dat
-    guardarPuntos($puntos);
-
-    // Regenerar la imagen con los puntos actuales
-    CrearImagen($puntos);
-}
-?>
+     // Regenerar la imagen con los puntos actuales
+     CrearImagen($puntos);
+ }
+ ?>
