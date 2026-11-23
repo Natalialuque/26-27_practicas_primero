@@ -37,6 +37,11 @@ $datos = [
 //errores
 $errores = [];
 
+/**
+ * Para meter la ruta de la imagen
+ */
+$rutaImagen = "";
+
 //Cargamos los puntos previamente guardados en el .dat, si existe
 if (file_exists(obtenerRutaFichero())) {
     $puntos = cargarPuntos();
@@ -140,17 +145,62 @@ if (isset($_POST["guardar"])) {
         $puntos[] = $punto;
         guardarPuntos($puntos);
     }
+    
+    // Generamos la imagen solo si hay puntos que dibujar
+    if (!empty($puntos)) {
+        $rutaImagen = CrearImagen($puntos);
+    }
+
+    
+}
+
+
+/**
+ * ELIMINAR 
+ */
+
+if (isset($_POST["eliminar"])) {
+
+    $indice = $_POST["elimina"];
+
+    // Si existe el punto seleccionado
+    if (isset($puntos[$indice])) {
+
+        // Lo borramos del array
+        unset($puntos[$indice]);
+
+        // Actualizamos el fichero .dat
+        guardarPuntos($puntos);
+
+        // Actualizamos la imagen
+        $rutaImagen = CrearImagen($puntos);
+    }
+}
+
+
+/**
+ * DESCARGAR --> cuando pulsamos descargar se encargar de meter el nombre del archivo y de deolver la imagen
+ */
+if (isset($_POST["descargar"])) {
+    header('Content-Type: image/jpg');
+    header('Content-Disposition: attachment; filename="'. nombreArchivo() .'"');
+
+    devuelveImagen($puntos);
+    exit;
 }
 
 /**
- * Para meter la ruta de la imagen
+ * SUBIR
  */
-$rutaImagen = "";
-
-// Generamos la imagen solo si hay puntos que dibujar
-if (!empty($puntos)) {
+if (isset($_POST["subirArch"])) {
+    procesarSubidaArchivo($puntos, $errores);
+    if (!empty($puntos)) {
     $rutaImagen = CrearImagen($puntos);
 }
+}
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,6 +220,9 @@ function cuerpo($errores, $datos, $puntos,$rutaImagen){
     formulario($errores, $datos);
     TextAreaPuntos($puntos);
     mostrarImagen($rutaImagen);
+    formEliminar($puntos);
+    descargaImg();
+    subirArchivo($errores);
 
 }
 
@@ -292,7 +345,10 @@ function formulario(array $errores, array $datos)
  */
 
 /**
- * Muestra los puntos guardados en un textarea de solo lectura
+ * FUNCION TEXT AREA --> Muestra los puntos guardados en un textarea de solo lectura
+ *
+ * @param array $puntos
+ * @return void
  */
 function TextAreaPuntos(array $puntos){
 ?>
@@ -312,7 +368,10 @@ function TextAreaPuntos(array $puntos){
 }
 
 /**
- * Muestra la imagen con los puntos (solo si existe)
+ * FUNCION MOSTRAR IMAGEN --> Muestra la imagen con los puntos (solo si existe)
+ *
+ * @param string $rutaImagen
+ * @return void
  */
 function mostrarImagen(string $rutaImagen){
     if ($rutaImagen !== "") {
@@ -327,7 +386,7 @@ function mostrarImagen(string $rutaImagen){
 
 
 /**
- *  funcion que saca el nombre del archivo deseado .jpg
+ *  FUNCION ARCHIVO -->  funcion que saca el nombre del navegador que se esta usando
  *
  * @return string
  */
@@ -418,7 +477,6 @@ function CrearImagen(array $puntos): string{
     imagedestroy($imagen);
 
     // Devolvemos la ruta WEB relativa al index.php actual
-    // El ?v=time() evita que el navegador use una versión en caché
     return "imagenes/" . $nombreArchivo . "?v=" . time();
 }
 
@@ -428,7 +486,7 @@ function CrearImagen(array $puntos): string{
  * 
  */
 
-//Funcion para obtener la ruta del fichero
+//FUNCION OBTENER RUTA --> Se encarga de sacar la ruta del fichero .dat 
 function obtenerRutaFichero(): string{
     return dirname(__FILE__) .
            "/datos/puntos_" .
@@ -438,7 +496,7 @@ function obtenerRutaFichero(): string{
 
 
 /**
- * Carga los puntos almacenados en el fichero .dat
+ * FUNCION CARGAR PUNTOS --> Carga los puntos en la ruta del .dat
  *
  * @return array
  */
@@ -487,7 +545,7 @@ function cargarPuntos(): array
 }
 
 /**
- * Guarda todos los puntos en el fichero .dat
+ * FUNCION GUARDAR PUNTO S--> Guarda todos los puntos en el fichero .dat
  *
  * @param array $puntos
  * @return void
@@ -521,3 +579,229 @@ function guardarPuntos(array $puntos): void{
     // Cerramos el fichero 
     fclose($fichero);
 }
+
+
+/**
+ * 
+ * EJERCICIO 4 --> 
+ *   
+ */
+
+/**
+ * FUNCION FORMULARIO BORRAR --> Se encarga de crear un combo con todos los puntos guardados en el fichero . dat con un boton de eliminar que se encarga de cargarselos 
+ *
+ * @param $puntos
+ * @return void
+ */
+function formEliminar($puntos){
+?>
+    <h2>Eliminar punto</h2>
+
+    <form action="" method="post">
+
+        <label for="elimina">Selecciona el punto:</label>
+
+        <select name="elimina" id="elimina">
+
+            <?php
+            foreach ($puntos as $clave => $punto) {
+            ?>
+                <option value="<?= $clave ?>">
+                    <?= $punto->getX() ?>;
+                    <?= $punto->getY() ?>;
+                    <?= $punto->getColor() ?>;
+                    <?= $punto->getGrosor() ?>
+                </option>
+            <?php
+            }
+            ?>
+
+        </select>
+
+        <input type="submit" name="eliminar" value="Eliminar">
+
+    </form>
+<?php
+}
+
+/**
+ * 
+ * EJERCICIO 5 -->
+ * 
+ */
+
+/**
+ * FUNCION DESCARGAR --> Formulario en el que creamos un boton de descargar, el cual nos descargara la iamagen de puntos
+ */
+
+function descargaImg(){
+?>
+    <h2>Descargar Imagen</h2>
+
+    <form action="" method="post">
+        <input type="submit" value="Descargar" name="descargar">
+    </form>
+<?php
+}
+
+/**
+ * FUNCION DEVUELVE IMAGEN --> hace lo mismo que la de crear, pero pasandole solo el array 
+ *
+ * @param array $puntos
+ * @return void
+ */
+function devuelveImagen(array $puntos): void{
+    $imagen = imagecreatetruecolor(500, 500);
+
+    $blanco = imagecolorallocate($imagen, 255, 255, 255);
+    $negro = imagecolorallocate($imagen, 0, 0, 0);
+
+    imagefill($imagen, 0, 0, $blanco);
+
+    // marco
+    imagerectangle($imagen, 0, 0, 499, 499, $negro);
+
+    foreach ($puntos as $punto) {
+
+        $rgb = Punto::COLORES[$punto->getColor()]["rgb"];
+
+        $color = imagecolorallocate(
+            $imagen,
+            $rgb[0],
+            $rgb[1],
+            $rgb[2]
+        );
+
+        imagefilledellipse(
+            $imagen,
+            $punto->getX(),
+            $punto->getY(),
+            $punto->getGrosor() * 4,
+            $punto->getGrosor() * 4,
+            $color
+        );
+    }
+
+     // Borde negro
+    imagerectangle($imagen, 0, 0, 499, 499, $negro);
+
+    imagejpeg($imagen);
+    imagedestroy($imagen);
+}
+
+/**
+ * 
+ * EJERCICIO 6 --> 
+ * 
+ */
+/**
+ * Undocumented function
+ *
+ * @param [type] $errores
+ * @return void
+ */
+function subirArchivo($errores) {
+    ?>
+    <h2>Subir archivo puntos</h2>
+    <form action="" method="post" enctype="multipart/form-data">
+        <input type="file" name="archivo" id="archivo">
+        <input type="submit" value="Subir Archivo" name="subirArch">
+    </form>
+    <?php if (!empty($errores["subirArch"])) { ?>
+            <?php foreach ($errores["subirArch"] as $mensaje) { ?>
+                <p style="color: red;"><?= $mensaje ?></p>
+            <?php } ?>
+        <?php } ?>
+    <?php 
+}
+
+
+/**
+ * Procesa la subida de un fichero txt con puntos.
+ *
+ * @param array $puntos   Array actual de objetos Punto.
+ * @param array $errores  Array donde guardar errores.
+ */
+function procesarSubidaArchivo(array &$puntos, array &$errores): void{
+    // Comprobar que se ha subido un archivo
+    if (!isset($_FILES["archivo"])) {
+        $errores["subirArch"][] = "No se ha recibido ningún archivo";
+        return;
+    }
+
+    // Comprobar errores de subida
+    if ($_FILES["archivo"]["error"] !== UPLOAD_ERR_OK) {
+        $errores["subirArch"][] = "Error al subir el archivo";
+        return;
+    }
+
+    // Comprobar extensión
+    $extension = strtolower(
+        pathinfo($_FILES["archivo"]["name"], PATHINFO_EXTENSION)
+    );
+
+    if ($extension !== "txt") {
+        $errores["subirArch"][] = "El archivo debe ser un TXT";
+        return;
+    }
+
+    // Leer todas las líneas del fichero
+    $lineas = file($_FILES["archivo"]["tmp_name"]);
+
+    if ($lineas === false) {
+        $errores["subirArch"][] = "No se ha podido leer el archivo";
+        return;
+    }
+
+    // Recorrer línea a línea
+    foreach ($lineas as $linea) {
+
+        // Eliminar espacios y saltos de línea
+        $linea = trim($linea);
+
+        // Si la línea está vacía la ignoramos
+        if ($linea === "") {
+            continue;
+        }
+
+        // Separar campos
+        $datos = explode(";", $linea);
+
+        // Debe haber exactamente 4 datos
+        if (count($datos) != 4) {
+            continue;
+        }
+
+        // Obtener valores
+        $x = trim($datos[0]);
+        $y = trim($datos[1]);
+        $color = trim($datos[2]);
+        $grosor = trim($datos[3]);
+
+        try {
+
+            // Crear el objeto Punto
+            $nuevoPunto = new Punto(
+                (int)$x,
+                (int)$y,
+                $color,
+                (int)$grosor
+            );
+
+            // Añadir al array de puntos
+            $puntos[] = $nuevoPunto;
+
+        } catch (Exception $e) {
+
+            // Si el punto es incorrecto se ignora
+            continue;
+        }
+    }
+
+    // Guardar todos los puntos en el fichero .dat
+    guardarPuntos($puntos);
+
+    // Regenerar la imagen con los puntos actuales
+    CrearImagen($puntos);
+}
+?>
