@@ -55,16 +55,18 @@ function obtenerRutaFichero(): string{
  *
  * @return array
  */
-function cargarPuntos(): array
-{
+function cargarPuntos(): array{
+        
+    // array donde guardaremos los objetos Punto
     $puntos = [];
-
+    //sacamos ruta
     $ruta = obtenerRutaFichero();
 
+    //verificamos que haya fichero
     if (!file_exists($ruta)) {
         return $puntos;
     }
-
+    //leeomos
     $lineas = file($ruta);
 
     foreach ($lineas as $linea) {

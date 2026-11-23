@@ -21,11 +21,6 @@ $puntos = [];
     // $puntos[] = new Punto(200, 200, "negro", 2);
     // $puntos[] = new Punto(300, 300, "naranja", 3);
 
-
-/**
- * CONTROLADOR
- */
-
 //datos de nuestro formulario 
 $datos = [
     "x" => 0,
@@ -42,12 +37,16 @@ $errores = [];
  */
 $rutaImagen = "";
 
-//Cargamos los puntos previamente guardados en el .dat, si existe
+/**
+ * Cargamos los puntos previamente guardados en el .dat, si existe
+ */
 if (file_exists(obtenerRutaFichero())) {
     $puntos = cargarPuntos();
 }
 
-// Si hay puntos guardados, cargamos también la imagen
+/**
+ * Si hay puntos guardados, cargamos también la imagen
+ */
 if (!empty($puntos)) {
     $rutaImagen = CrearImagen($puntos);
 }
@@ -160,7 +159,7 @@ if (isset($_POST["guardar"])) {
 
 
 /**
- * ELIMINAR 
+ * ELIMINAR--> cuando pulsamos el boton eliminar se encarga de borrarlo
  */
 
 if (isset($_POST["eliminar"])) {
@@ -183,7 +182,7 @@ if (isset($_POST["eliminar"])) {
 
 
 /**
- * SUBIR
+ * SUBIR --> cuando pulsamos subir se encarga de cargar el nuevo archivo y pintarlo en el text area y imagen 
  */
  if (isset($_POST["subirArch"])) {
 
@@ -194,8 +193,9 @@ if (isset($_POST["eliminar"])) {
 }
 
 
-
-
+/**
+ * DESCARGAR --> va en un fichero externo
+ */
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 inicioCabecera("APLICACION PRIMER TRIMESTRE");
@@ -205,21 +205,32 @@ inicioCuerpo("2DAW APLICACION", $ubicacion);
 cuerpo($errores, $datos, $puntos,$rutaImagen); //llamo a la vista
 finCuerpo();
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////vista cabecera donde podemos ver otros enlaces 
 
+//Cabecera
 function cabecera() {}
 //vista
 function cuerpo($errores, $datos, $puntos,$rutaImagen){
 
+    //formulario principal
     formulario($errores, $datos);
+    //Text area para mostrar los puntos 
     TextAreaPuntos($puntos);
+    //Imagen que pinta los puntos
     mostrarImagen($rutaImagen);
+    //Forumalrio borrar
     formEliminar($puntos);
+    //Formulario para descargar la imagen
     descargaImg();
+    //Formulario para subir el archivos 
     subirArchivo($errores);
 
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * 
+ * EJERCICIO 1 --> 
+ * 
+ */
 
 /**
  * FORMULARIO --> funcion donde vamos a crear un formulario que vamos a mostrar por pantalla para que el usuario introduzca los datos
@@ -375,6 +386,11 @@ function mostrarImagen(string $rutaImagen){
     }
 }
 
+/**
+ * 
+ * EJERCICIO 3 --> 
+ * 
+ */ 
 
 /**
  *  FUNCION ARCHIVO -->  funcion que saca el nombre del navegador que se esta usando
@@ -471,11 +487,7 @@ function CrearImagen(array $puntos): string{
     return "/../../imagenes/puntos/" . $nombreArchivo . "?v=" . time();
 }
 
-/**
- * 
- * EJERCICIO 3 --> 
- * 
- */
+
 
 //FUNCION OBTENER RUTA --> Se encarga de sacar la ruta del fichero .dat 
 function obtenerRutaFichero(): string{
@@ -485,6 +497,11 @@ function obtenerRutaFichero(): string{
            ".dat";
 }
 
+/***
+ * 
+ * 
+ * 
+ */
 
 /**
  * FUNCION CARGAR PUNTOS --> Carga los puntos en la ruta del .dat
@@ -625,6 +642,8 @@ function formEliminar($puntos){
  * FUNCION DESCARGAR --> Formulario en el que creamos un boton de descargar, el cual nos descargara la iamagen de puntos
  */
 
+//Tenemos en cuenta que el real funcionamiento lo hacemos desde una clase externa del indeex
+
 function descargaImg(){
 ?>
     <h2>Descargar Imagen</h2>
@@ -643,7 +662,7 @@ function descargaImg(){
  * 
  */
 /**
- * Undocumented function
+ * FUNCION SUBIRARCHIVO --> formulario para hacer la subida de un archivo 
  *
  * @param [type] $errores
  * @return void
@@ -665,10 +684,10 @@ function subirArchivo($errores) {
 
 
 /**
- * Procesa la subida de un fichero txt con puntos.
+ * FUNCION PROCESAR SUBIDA --> Procesa la subida de un fichero txt con puntos
  *
- * @param array $puntos   Array actual de objetos Punto.
- * @param array $errores  Array donde guardar errores.
+ * @param array $puntos  
+ * @param array $errores 
  */
  function procesarSubidaArchivo(array &$puntos, array &$errores): void{
      // Comprobar que se ha subido un archivo
